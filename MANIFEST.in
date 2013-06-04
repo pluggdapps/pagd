@@ -1,0 +1,1 @@
+recursive-include pagd *.css *.js *.png *.ttl *.rst *.html

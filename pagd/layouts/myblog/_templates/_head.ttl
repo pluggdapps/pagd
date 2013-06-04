@@ -1,0 +1,11 @@
+<link text/css "media/myblog.css" rel="stylesheet">
+<link text/css "media/pygments.css" rel="stylesheet">
+
+@for g_webfont in google_webfonts :
+  <link text/css "${{ g_webfont['src'] }}" rel='stylesheet'>
+
+<style text/css>
+  body {{
+    @if 'fontFamily' in style :
+        font-family: ${{ style['fontFamily'] }};
+  }}

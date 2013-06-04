@@ -1,0 +1,15 @@
+# use glob syntax.
+syntax: glob
+*.pyc
+*.swp
+*__pycache__
+*~
+eggs/
+_build/
+dist/
+distribute-0.6.10.tar.gz
+.vimsession
+pagd.egg-info/
+# switch to regexp syntax.
+syntax: regexp
+^\.pc/

@@ -1,0 +1,63 @@
+static-web-site
+  A static web site in the context of `pagd` is a collection of html, css,
+  javascript and other web-files (interpretable by browser like medium). The
+  static site is generated from a source tree containing a collection of
+  template, content and context for each page.
+
+layout 
+  Contains source tree to generate static web site. A layout typically contains
+  a source tree of page contents, associated context attributes for each page,
+  collection of templates and a collection of media / web files.
+
+sitepath
+  Directory path containing a `pagd` layout.
+
+siteconfig
+  A json file typically stored as `config.json` under `sitepath`. This file
+  will be parsed for configuration settings that will applied while site
+  generation. To learn more about available configuration settings refer to
+  corresponding layout definition.
+
+content-page
+  Content provides the main content for each page. Contents can be organized
+  as files and directories where the relative path to a content-file will
+  directly correspond to relative-url-path in the generated web-site. Content
+  files can be many formats like plain-text, re-structured text, one of the
+  many wiki-markups like markdown, html etc ...
+
+context
+  Every page content can have associated context description. For eg, let us
+  say there is a content-page called `mycompany/contactus.md` containing a
+  description of company location. Context can be associated to this page by
+  describing them in a file, `mycompany/contactus.json`.
+
+  Note that all context information for each and every page can be stored in
+  a corresponding `<pagename>.json` file.
+
+default-context
+  It is possible to associate context attributes for all content-pages in a
+  given subdirectory. For eg, associate all content-pages under subdirectory
+  `mycompany/` by describing them in `mycompany/_context.json`.
+
+  Note that _context.json under a given directory will be associated with
+  every content-page under the directory tree. Attributes described in
+  _context.json file are overridable by _context.json file described further
+  down under sub-directories. And finally context attributes that are directly
+  associted with content-page will override default-context.
+
+template
+  While generating a web-site, every content-page under the source-layout 
+  will be translated to corresponding web-page. The site generation process
+  will pick up a template from its layout-source, and pass the page-content
+  and its associated context. Templates can be described using many 
+  templating language. Refer to the corresponding layout and templating
+  documentation to learn more about organizing templates for page generation.
+
+media
+  Media files will be copied as it is to the target site. Interpretation of
+  media files are left to layout plugins, hence refer to corresponding layout
+  documentations for more information.
+
+cache
+  Layouts can cache the site generation process to speed up performance. For
+  more information refer to corresponding layout plugin.
