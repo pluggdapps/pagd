@@ -9,6 +9,12 @@ layout
   a source tree of page contents, associated context attributes for each page,
   collection of templates and a collection of media / web files.
 
+  Layouts are implemented as plugins, like ``pagd.myblog`` that comes with the
+  package, that directly interfaces with sub-commands from
+  command-line-interface (CLI). Most commonly used sub-commands are
+  ``create`` to create a source tree of new layout, ``generate`` to build a
+  static web-site from layout source tree.
+
 sitepath
   Directory path containing a `pagd` layout.
 
