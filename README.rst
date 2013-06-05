@@ -60,5 +60,5 @@ package are not fully tested - you can hack the code, contribute back with
 is maintained with mercurial and uses hg-git plugin to publish it on github.
 
 - **License:** `GPLv3 license <http://www.gnu.org/licenses/>`.
-- **Requires:** Linux, Python-3.x, Pluggdapps, PLY.
+- **Requires:** Linux, Python-3.x, Pluggdapps.
 - **Status:** Core design stable. Not expected to change.
