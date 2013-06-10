@@ -20,7 +20,7 @@ sitepath
 
 siteconfig
   A json file typically stored as `config.json` under `sitepath`. This file
-  will be parsed for configuration settings that will applied while site
+  is be parsed for configuration settings that will be applied during site
   generation. To learn more about available configuration settings refer to
   corresponding layout definition.
 

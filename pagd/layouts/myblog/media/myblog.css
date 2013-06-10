@@ -131,7 +131,11 @@ div#container {{
 div#footer {{
     font-size : smaller;
     color : gray;
-    text-align : right;
     margin-bottom : 50px;
+}}
+
+div#copyright {{
+    text-align : right;
+    float: right;
 }}
 

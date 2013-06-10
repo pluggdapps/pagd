@@ -10,53 +10,68 @@ class ILayout(Interface):
     """Interface to define layout and manage a static site."""
 
     sitepath = None
-    """Path to directory where a new layout created."""
+    """Path to directory where a new layout is created."""
 
     siteconfig = {}
-    """Configuration parameters for layout under `sitepath`."""
+    """Configuration parameters for layout under `sitepath`. Normally site
+    configuration is stored as `config.json` under ``sitepath``."""
 
-    def issite( sitepath ):
+    def is_exist( sitepath ):
         """Is there a valid layout under `sitepath`. Returns a boolean."""
 
     def create():
-        """Create a new copy of layout as site source."""
+        """Create a new layout under ``sitepath``. Subsequently users will add
+        content under ``sitepath`` which can then be translated to static
+        web-site. Corresponds directly with `create` sub-command from pagd
+        command line script."""
 
     def generate(buildtarget, **kwargs):
-        """Generate static web site from source layout.
+        """Generate static web site from source layout, specified by
+        ``sitepath``. Corresponds directly with `gen` sub-command from pagd
+        command line script.
 
         ``buildtarget``,
             Absolute directory path or directory path relative to `sitepath`
-            where generated html site-pages must be saved.
+            where generated html site-pages are saved. Your static web site is
+            available under buildtarget.
 
         kwargs can be,
 
         ``regen``,
             If True regenerate all source files, whether modified or
-            unmodified.
+            unmodified. Default is True.
         """
 
-    def newpage():
-        """Create a new content page in layout's source tree."""
-
     def pages( sitepath ):
-        """For site under `sitepath`, return an iterator iterating over every
-        page under the site. To be called during :meth:`generate`.
+        """To build the static site from a source layout, first individual
+        pages must be identified. This interface method iterates over each and
+        every site-page that is identified under source layout. Refer to
+        corresponding layout-plugin to know how pages are idenfitied from
+        source layout.
+
+        This is normally called during :meth:`generate`.
         
         For each iteration returns ``page`` object, which is an instance of
         class :class:`Page`.
         """
 
     def pagecontext(page):
-        """Gather context information from all `_context.json` files in the page
-        path and finally override them with page's own context if available.
+        """After a page is identified, corresponding context information must
+        be gathered. Context can be saved in JSON files that have one-to-one
+        mapping with content-pages, and/or it can be supplied by the content
+        itself (many markups, like rst, markdown, allow authors to add 
+        meta-data in their document). Refer to corresponding layout-plugin to
+        know how pages are idenfitied from source layout.
 
-        Returns back the page object with its ``context`` attribute updated
-        with relevant context values.
+        Returns back dictionary of ``context`` attributes.
         """
 
     def pagecontent(page):
         """Read the page content from one or more files, specified by
         ``contentfiles`` attribute, and convert them into html articles.
+        Normally content files are authored in plain text or using rst,
+        markdown, or even raw html. Refer to corresponding :class:`IContent`
+        plugin to know supported formats.
 
         Retun back the page object with its ``articles`` attribute updated
         with list of html text.
@@ -66,16 +81,25 @@ class ILayout(Interface):
         """Locate the template file from the layout's template sub-directory
         and return the template file.
         
-        Return template file as absolute file path.
-        """
-
-    def pagegenerate(page):
-        """Generate a html web page corresponding to content-page. Return
-        html text for page.
-
         ``page``,
             An instance of class :class:`Page`.
+
+        Return template file as absolute file path. If False or None is
+        returned then, either template file couldn't be located or not located
+        for other reasons.
         """
+
+    def newpage( pagename ):
+        """Create a new content page in layout's source tree. Corresponds
+        directly with `newpage` sub-command from pagd command line script.
+        
+        ``pagename``,
+            name of the new file, that shall be interpreted as a new web-page
+            for static web-site. Along with filename, file extension and file
+            path is to be supplied. If one or both left unspecified then it is
+            updo the layout-plugin to take a default action.
+        """
+
 
 
 class IContent(Interface):
@@ -105,18 +129,20 @@ class IXContext(Interface):
 
         ``page``,
             an instance of class :class:`Page`. Contains page description and
-            its context gather so far.
+            its context gathered so far.
 
         Return a python dictionary of context attributes. Context must contain
         basic python data-types like integers, float, string, list, tuple,
         dictionary.
         """
 
+
 class ITemplate(Interface):
     """Interface specification to translate a page using a template file."""
 
     def render( page ):
         """Render the final html page in the target site-directory."""
+
 
 
 class IPublish(Interface):

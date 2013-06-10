@@ -14,7 +14,7 @@ from   pagd.interfaces      import IContent
 
 class Pandoc( Plugin ):
     """Plugin that can translate different content formats into html
-    format."""
+    format. Under development, contributions are welcome."""
     implements( IContent )
 
     def __init__(self) :

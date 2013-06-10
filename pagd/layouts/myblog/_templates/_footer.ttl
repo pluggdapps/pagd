@@ -1,3 +1,4 @@
 <div #footer>
-  &copy; 2013 Pratap Chakravarthy.
+  <div #copyright> &copy; 2013 Pratap Chakravarthy.
+  <div #pagd> generated using <a "https://github.com/prataprc/pagd">pagd
 

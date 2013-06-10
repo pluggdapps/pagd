@@ -4,10 +4,12 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2011 R Pratap Chakravarthy
 
-from os.path      import splitext, isfile
+from   os.path      import splitext, isfile
 
 from   pluggdapps.plugin    import Plugin, implements
 import pluggdapps.utils     as h
+import pluggdapps.interfaces
+
 from   pagd.interfaces      import IContent
 
 
@@ -16,53 +18,60 @@ class Native( Plugin ):
     format."""
     implements( IContent )
 
-    def __init__(self) :
-        # TODO : Create a parser object once and reuse them for all page
-        # contents.
-        pass
+    def __init__(self, siteconfig) :
+        self.siteconfig
+        setts = h.settingsfor('tayra.ttlcompiler.', siteconfig)
+        setts.update( debug=True )
+        self.ttlplugin = self.qp(
+                            pluggdapps.interfaces.ITemplate, 'tayra.TTLCompiler',
+                            settings=setts )
 
     #---- IContent interface methods.
 
     def articles( self, page ):
+        """For ``page``, an instance of :class:`Page` class, using its
+        ``contentfiles`` attribute, translate each file's text to html and
+        return a corresponding list of articles. Where each element in the
+        article is a tuple of,
+            ( article's fpath, dictionary-of-metadata, html-text ).
+        """
+
         articles = []
         for fpath in page.contentfiles :
             if not isfile(fpath) : continue
             _, ext  = splitext(fpath)
             ftype = page.context.get('filetype', ext.lstrip('.'))
-            metadata, html = self.parsers[ ftype ](self, fpath)
+            metadata, html = self.parsers[ ftype ](self, fpath, page)
             articles.append( (fpath, metadata, html) )
         return articles
 
-    def rst2html(self, fpath):
-        from docutils import core, io, nodes
+    def rst2html(self, fpath, page):
+        from pagd.contents  import rst2html
+        return rst2html(fpath, page)
 
-        setts = { 'syntax_highlight': 'short' }
-        pub = core.Publisher( destination_class=io.StringOutput )
-        pub.set_components( 'standalone', 'restructuredtext', 'html' )
-        pub.process_programmatic_settings(None, setts, None)
-        pub.set_source( source_path=fpath )
-        pub.publish()
-        parts = pub.writer.parts
-        metadata = {}
-        for docinfo in pub.document.traverse(nodes.docinfo) :
-            for element in docinfo.children :
-                if element.tagname == 'field' : # Generic field
-                    name, value = element.children
-                    metadata[ name.astext().lower() ] = value.astext()
-                else :  # Standard fields
-                    metadata[ element.tagname.lower() ] = element.astext()
-        content = parts.get('body')
-        return metadata, content
+    def md2html(self, fpath, page):
+        from pagd.contents  import md2html
+        return md2html(fpath, page)
 
-    def md2html(self, fpath):
-        # TODO : If page context has markdown configuration use them in the
-        # Markdown() constructor.
-        from markdown import Markdown
-        md = Markdown( extensions=['meta'],
-                       output_format='html5', safe_mode='escape' )
-        content = md.convert( open(fpath).read() )
-        metadata = {name.lower() : value[0] for name, value in md.meta.items()}
-        return metadata, content
+    def html2html(self, fpath, page):
+        from pagd.contents  import html2html
+        return html2html(fpath, page)
+
+    def text2html(self, fpath, page):
+        from pagd.contents  import text2html
+        return text2html(fpath, page)
+
+    def ttl2html(self, fpath, page):
+        """``fpath`` is identified as a file containing tayra template text. If
+        generated html contains <meta> tag elements, it will be used as source of
+        meta-data information.
+
+        And return a tuple of (metadata, content). Content is HTML text."""
+        from pagd.contents  import html2metadata
+        html = self.ttlplugin.render(page.context, file=fpath)
+        metadata = html2metadata(html)
+        return metadata, html
+
 
     parsers = {
         'rst' : rst2html,
@@ -74,4 +83,10 @@ class Native( Plugin ):
         'mdwn' : md2html,
         'mdtxt' : md2html,
         'mdtext' : md2html,
+        'txt' : text2html,
+        'text' : text2html,
+        'html' : html2html,
+        'htm' : html2html,
+        'ttl' : ttl2html,
     }
+

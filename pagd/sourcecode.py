@@ -1,38 +1,39 @@
 # -*- coding: utf-8 -*-
+
 """
-    The Pygments reStructuredText directive
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Pygments reStructuredText directive
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    This fragment is a Docutils_ 0.5 directive that renders source code
-    (to HTML only, currently) via Pygments.
+This fragment is a Docutils_ 0.5 directive that renders source code
+(to HTML only, currently) via Pygments.
 
-    To use it, adjust the options below and copy the code into a module
-    that you import on initialization.  The code then automatically
-    registers a ``sourcecode`` directive that you can use instead of
-    normal code blocks like this::
+To use it, adjust the options below and copy the code into a module
+that you import on initialization.  The code then automatically
+registers a ``sourcecode`` directive that you can use instead of
+normal code blocks like this::
 
-        .. sourcecode:: python
+    .. sourcecode:: python
 
-            My code goes here.
+        My code goes here.
 
-    If you want to have different code styles, e.g. one with line numbers
-    and one without, add formatters with their names in the VARIANTS dict
-    below.  You can invoke them instead of the DEFAULT one by using a
-    directive option::
+If you want to have different code styles, e.g. one with line numbers
+and one without, add formatters with their names in the VARIANTS dict
+below.  You can invoke them instead of the DEFAULT one by using a
+directive option::
 
-        .. sourcecode:: python
-            :linenos:
+    .. sourcecode:: python
+        :linenos:
 
-            My code goes here.
+        My code goes here.
 
-    Look at the `directive documentation`_ to get all the gory details.
+Look at the `directive documentation`_ to get all the gory details.
 
-    .. _Docutils: http://docutils.sf.net/
-    .. _directive documentation:
-       http://docutils.sourceforge.net/docs/howto/rst-directives.html
+.. _Docutils: http://docutils.sf.net/
+.. _directive documentation:
+   http://docutils.sourceforge.net/docs/howto/rst-directives.html
 
-    :copyright: Copyright 2006-2013 by the Pygments team, see AUTHORS.
-    :license: BSD, see LICENSE for details.
+:copyright: Copyright 2006-2013 by the Pygments team, see AUTHORS.
+:license: BSD, see LICENSE for details.
 """
 
 # Options

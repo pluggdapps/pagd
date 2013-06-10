@@ -8,6 +8,9 @@ Configuration
 
 Content
 
+        Gather context information from all `_context.json` files in the page
+        path and finally override them with page's own context if available.
+
 Context
 
   layout,
@@ -34,5 +37,6 @@ Context
     :class:`Site` instance
   page
     :class:`Page` instance
+
 
 Template

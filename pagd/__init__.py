@@ -22,4 +22,6 @@ import pagd.contents    # Contain content translation plugins.
 import pagd.layouts     # Contain layout plugins
 import pagd.templates   # Contain template plugins
 
-import pagd.sourcecode
+try    : import pagd.sourcecode
+except : pass
+

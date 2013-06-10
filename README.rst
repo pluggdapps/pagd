@@ -1,4 +1,4 @@
-Static web site generator, based on well understood MVC - Model, View,
+Static web site generator, based on well understood MVC_ - Model, View,
 Controller - design philosophy. The general idea behind MVC from web
 application's perspective is ::
 
@@ -56,9 +56,24 @@ it is done ::
 
 ``pagd`` core-design is stable. Some plugins, that are shipped along ``pagd``
 package are not fully tested - you can hack the code, contribute back with
-`github <https://github.com/prataprc/pagd>`_. Note that the orginal repository
+`github_ <https://github.com/prataprc/pagd>`_. Note that the orginal repository
 is maintained with mercurial and uses hg-git plugin to publish it on github.
 
-- **License:** `GPLv3 license <http://www.gnu.org/licenses/>`.
+- only part that cannot be configured, constumized or entirely replaced, is
+  the name of the tool ;)
+
+- **License:** `GPLv3 license`_
 - **Requires:** Linux, Python-3.x, Pluggdapps.
+    - To interpret markdown text, python-markdown_ needs to be installed.
+    - To interpret rst text, docutils_ needs to be installed.
+    - To interpret raw-html, python-lxml_ needs to be installed.
+    - If you need source code highlighting in your rst text, ``pygments`` and
+      ``docutils`` needs to be installed.
 - **Status:** Core design stable. Not expected to change.
+
+.. _MVC: http://en.wikipedia.org/wiki/Model-view-controller
+.. _GPLv3 license:  http://www.gnu.org/licenses/
+.. _python-markdown: https://pypi.python.org/pypi/Markdown
+.. _docutils: https://pypi.python.org/pypi/docutils
+.. _python-lxml: https://pypi.python.org/pypi/lxml
+

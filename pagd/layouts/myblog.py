@@ -16,7 +16,10 @@ from   pagd.interfaces      import ILayout, IContent, ITemplate, IXContext
 from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page
 
 class MyBlog( Plugin ):
-    """Layout plugin to generate personal blog sites."""
+    """A layout plugin to generate personal blog sites. Support create, gen,
+    newpage interfaces to corresponding sub-commands.
+    """
+
     implements(ILayout)
     layoutpath = join( dirname(__file__), 'myblog')
 
@@ -26,27 +29,56 @@ class MyBlog( Plugin ):
         'j2' : 'pagd.Jinja2',
         'mako' : 'pagd.Mako',
     }
+    """Caching :class:`ITemplate` plugins as a dictionary map of
+    file-extension and plugin-instance."""
+
     _xcontexts = {}
+    """Caching :class:`IXContext` plugins as a dictionary of plugin-name and
+    plugin instances."""
+
     _icontents = {}
+    """Caching :class:`IContext` plugins as a dictionary of plugin-name and
+    plugin instances."""
 
     def __init__( self ):
         self.sitepath = self['sitepath']
-        self.siteconfig = json2dict( join( self.sitepath, self['configfile']))
+        self.siteconfig = self['siteconfig'] or \
+                          json2dict( join( self.sitepath, self['configfile']))
+        self._cache_plugins()
+
+    def _cache_plugins(self):
+        """Instantiate plugins available for :class:`ITemplate`,
+        :class:`IXContext` and :class:`IContent` interfaces."""
         self._templates = {
             typ : self.qp( ITemplate, caname, self.siteconfig )
-            for typ, caname in self._templates.items() }
-        
-        self._xcontexts = { p.caname : p for p in self.qps(IXContext) }
-        self._icontents = { p.caname : p for p in self.qps(IContent) }
+            for typ, caname in self._templates.items()
+        }
+        self._xcontexts = {
+            p.caname : p 
+            for p in self.qps(IXContext, self.siteconfig)
+        }
+        self._icontents = {
+            p.caname : p 
+            for p in self.qps(IContent, self.siteconfig)
+        }
 
     #---- ILayout interface methods
 
     def is_exist(self):
+        """:meth:`padg.interfaces.ILayout.is_exist` interface method."""
+
         xs = [ 'configfile', 'contentdir', 'templatedir' ]
         x, y, z = [join(self.sitepath, self[x]) for x in xs]
         return isfile(x) and isdir(y) and isdir(z)
 
     def create(self, **kwargs) :
+        """Creates a new layout under ``sitepath``. Uses the directory tree
+        under `pagd:layouts/myblog` as a template for the new layout. Accepts
+        the following variable while creating,
+
+        ``sitepath``,
+            directory-path under which the new layout had to be created.
+        """
         if not isdir( self['sitepath'] ) :
             os.makedirs( self['sitepath'], exist_ok=True )
         _vars = { 'sitepath' : self.sitepath,
@@ -54,17 +86,57 @@ class MyBlog( Plugin ):
         h.template_to_source( self.layoutpath, self.sitepath, _vars )
 
     def generate(self, buildtarget, **kwargs) :
-        regen = kwargs['regen']
+        """Generate a static, personal blog site from the layout under
+        ``sitepath``. Note that previously a new-layout must have been created
+        using this plugin and available under `sitepath`.
+        
+        This method,
+
+        - iterates over each page availabe under the source-layout,
+        - gathers page contexts.
+        - translates page content into html.
+        - locate a template for the page and generate the html for page.
+
+        Refer to :meth:`pages` method to know how pages are located under
+        layout's content-directory.
+        """
+        regen = kwargs.get('regen', True)
         for page in self.pages() :
             path = join(buildtarget, page.relpath)
             fname = abspath( join( path, page.pagename+'.html' ))
             self.pa.loginfo("    Generating `%r`" % fname)
-            html = self.pagegenerate( page )
-            os.makedirs( path, exist_ok=True )
-            open(fname, 'w').write(html)
+
+            # Gather page context
+            page.context.update( self.pagecontext( page ))
+
+            # Gather page content
+            page = self.pagecontent( page )
+
+            # page content can also have context, in the form of metadata
+            for fpath, metadata, content in page.articles :
+                # If _xcontext is available
+                p = self._xcontexts.get(metadata.get('_xcontext', None), None)
+                page.context.update( metadata )
+                page.context.update( p.fetch(page) ) if p else None
+
+            # Find a template for this page.
+            page.templatefile = self.pagetemplate(page) # Locate the templage
+            if isinstance(page.templatefile, str) :
+                _, ext = splitext(page.templatefile)
+                ttype = page.context.get('templatetype', ext.lstrip('.'))
+                # generate page's html
+                html = self._templates[ttype].render( page )
+                os.makedirs( path, exist_ok=True )
+                open(fname, 'w').write(html)
+
 
     SPECIALPAGES = ['_context.json']
     def pages(self):
+        """Individual pages are picked based on the relative directory path
+        along with filenames. Note that file extensions are not used to
+        differentite pages, they are only used to detect the file type and
+        apply corresponding translation algorithm to get page's html.
+        """
         contentdir = join( self.sitepath, *self['contentdir'].split('/') )
         site = Site()
         site.sitepath = self.sitepath
@@ -73,7 +145,7 @@ class MyBlog( Plugin ):
             files = sorted(files)
             [ files.remove(f) for f in self.SPECIALPAGES if f in files ]
             while files :
-                pagename, contentfiles, context, files = \
+                pagename, contentfiles, files = \
                         pagd( join(contentdir, dirpath), files )
                 page = Page()
                 page.site = site
@@ -82,55 +154,99 @@ class MyBlog( Plugin ):
                 page.urlpath = join( relpath(dirpath, contentdir), pagename)
                 page.urlpath = '/'.join( page.urlpath.split( os.sep ))
                 page.contentfiles = contentfiles
-
-                page.context = { 'site' : page.site, 'page' : page }
-                page = self.pagecontext( page )
-                page.context.update( context )
-
-                page = self.pagecontent( page )
-                # page content can also have context, in the form of metadata
-                for fpath, metadata, content in page.articles :
-                    page.context.update( metadata )
-
-                # Fix some context.
-                if 'title' not in page.context :
-                    page.context['title'] = page.pagename
+                page.context = {
+                    'site' : page.site,
+                    'page' : page,
+                    'title' : page.pagename
+                }
                 yield page
 
     def pagecontext( self, page ):
+        """Gathers default context for page.
+
+        Default context is specified by one or more JSON files by name
+        `_context.json` that is located under every sub-directory that
+        leads to the page-content under layout's content-directory.
+        `_context.json` found one level deeper under content directory will
+        override `_context.json` found in the upper levels.
+
+        Also, if a pagename has a corresponding JSON file, for eg,
+        ``<layout>/_contents/path/hello-world.rst`` file has a corresponding
+        ``<layout>/_contents/path/hello-world.json``, it will be interepreted
+        as the page's context. This context will override all the default
+        context.
+
+        If `_xcontext` attribute is found in a default context file, it
+        will be interpreted as plugin name implementing :class:`IXContext`
+        interface. The plugin will be queried, instantiated, to fetch context
+        information from external sources like database.
+
+        Finally ``last_modified`` time will be gathered from content-file's
+        mtime statistics.
+        """
         contentdir = join( self.sitepath, *self['contentdir'].split('/') )
         contexts = self.default_context(contentdir, page)
 
+        # Page's context, if available.
+        page_context_file = join(page.relpath, page.pagename) + '.json'
+        c = json2dict(page_context_file) if isfile(page_context_file) else None
+        contexts.append(c) if c else None
+
+        context = {}
         # From the list of context dictionaries in `contexts` check for
         # `_xcontext` attribute and fetch the context from external source.
         for c in contexts :
-            page.context.update(c)
+            context.update(c)
             plugin = self._xcontexts.get( c.get('_xcontext', None), None )
-            page.context.update( plugin.fetch(page) ) if plugin else None
+            context.update( plugin.fetch(page) ) if plugin else None
 
         tms = max([ getmtime(f) for f in page.contentfiles ])
-        page.context.update({
+        context.update({
             'last_modified' :time.strftime( "%a %b %d, %Y", time.gmtime(tms) ),
         })
-        return page
+        return context
 
     def pagecontent( self, page ):
-        name = page.context.get('IContent', self['IContent'])
-        icont = self._icontents.get( name, _default_settings['IContent'] )
-        page.articles = icont.articles(page)
+        """Pages are located based on filename, and the file extension is not
+        used to differential pages. Hence there can be more than one file by
+        same filename, like, ``_contents/hello-world.rst``,
+        ``_contents/hello-world.md``. In such cases, all files will be
+        considered as part of same page and translated to html based on the
+        extension type.
+
+        Updates ``page.articles`` attribute with a list of translated html and
+        returns the page instance. Refer to :class:``Page`` class and its
+        ``articles`` attribute to know its data-structure."""
+
+        n = page.context.get('IContent', self['IContent'])
+        name = n if n in self._icontents else _default_settings['IContent']
+        icont = self._icontents.get( name, None )
+        page.articles = icont.articles(page) if icont else []
         return page
 
-    def pagegenerate( self, page ):
-        page.templatefile = self.pagetemplate(page)
-        _, ext = splitext(page.templatefile)
-        ttype = page.context.get('templatetype', ext.lstrip('.'))
-        return self._templates[ttype].render( page )
-
     def pagetemplate( self, page ):
+        """For every page that :meth:`pages` method iterates, a corresponding
+        template file should be located. It is located by following steps.
+
+        - if page's context contain a ``template`` attribute, then its value
+          is interpreted as the template file for page in asset specification
+          format.
+        - join the relative path of the page with ``_template`` sub-directory
+          under the layout, and check whether a template file by pagename is
+          available. For eg, if pagename is ``hello-world`` and its relative
+          path is ``blog/2010``, then a template file
+          ``_templates/blog/2010/hello-world`` will be lookup. Note that the
+          extensio of the template file is immaterial.
+        - If both above steps have failed then will lookup for a ``_default``
+          template under each sub-directory leading to
+          ``_templates/blog/2010/``.
+        """
         tmplpath = join( self.sitepath, *self['templatedir'].split('/') )
         tmplfile = None
         dr = abspath( join( tmplpath, page.relpath ))
-        if 'template' in page.context :
+        if page.context.get('template', None) == False :
+            tmplfile = False
+        if tmplfile == None and 'template' in page.context :
             tmplfile = asset_spec_to_abspath( page.context['template'] )
             tmplfile = tmplfile if tmplfile and isfile(tmplfile) else None
         if tmplfile == None and isdir(dr) :
@@ -146,6 +262,17 @@ class MyBlog( Plugin ):
                                     if tmplfile and isfile(tmplfile) else None
                 path, _ = split( path )
         return tmplfile
+
+
+    def newpage(self, pagename):
+        contentdir = join( self.sitepath, *self['contentdir'].split('/') )
+        try     : _, ext = splitext(pagename)
+        except  : ext = '.rst'
+        filepath = join( self.sitepath, contentdir, pagename+'.rst' )
+        os.makedirs( dirname(filepath), exist_ok=True )
+        open(filepath, 'w').write()
+        self.pa.loginfo("New page create - %r", filepath)
+
 
     #---- Local functions
     def default_context( self, contentdir, page ):

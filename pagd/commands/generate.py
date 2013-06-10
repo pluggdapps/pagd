@@ -12,8 +12,10 @@ from   pagd.interfaces       import ILayout
 from   pagd.lib              import json2dict
 
 class Gen( Singleton ):
-    """Sub-command plugin to generates the site at the given deployment 
-    directory."""
+    """Sub-command plugin to generate static web site at the given target
+    directory. If a target directory is not specified, it uses layout's
+    default target directory. For more information refer to corresponding
+    layout plugin's documentation."""
     implements( ICommand )
 
     cmd = 'gen'
@@ -27,7 +29,7 @@ class Gen( Singleton ):
                                 self.cmd, description=self.description )
         self.subparser.set_defaults( handler=self.handle )
         self.subparser.add_argument(
-                '-c', '--config-path',
+                '-g', '--config-path',
                 dest='configfile', default='config.json',
                 help='The configuration used to generate the site')
         self.subparser.add_argument(
@@ -48,7 +50,9 @@ class Gen( Singleton ):
             layoutname = siteconfig['layout']
         else :
             layoutname = args.layout
-        sett = { 'sitepath' : args.sitepath }
+        sett = { 'sitepath' : args.sitepath,
+                 'siteconfig' : siteconfig
+               }
         layout = self.qp( ILayout, layoutname, settings=sett )
         buildtarget = abspath( join( args.sitepath, args.buildtarget ))
         self.pa.loginfo(

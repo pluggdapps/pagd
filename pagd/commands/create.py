@@ -4,13 +4,24 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
+from   os.path                  import join, isfile
+
 from   pluggdapps.plugin        import Singleton, implements
 from   pluggdapps.interfaces    import ICommand
 
+from   pagd.lib                 import json2dict
 from   pagd.interfaces          import ILayout
 
 class Create( Singleton ):
-    """Sub-command plugin to create a new layout at the given sitepath."""
+    """Sub-command plugin to create a new layout at the given sitepath. For
+    example,
+     
+    .. code-block:: bash
+
+        pagd -l 'pagd.myblog' create
+
+    uses ``pagd.myblog`` plugin to create a source layout.
+    """
     implements( ICommand )
 
     cmd = 'create'
@@ -24,6 +35,10 @@ class Create( Singleton ):
                                 self.cmd, description=self.description )
         self.subparser.set_defaults( handler=self.handle )
         self.subparser.add_argument(
+                '-g', '--config-path',
+                dest='configfile', default='config.json',
+                help='The configuration used to generate the site')
+        self.subparser.add_argument(
                 '-f', '--force', dest='overwrite',
                 action='store_true', default=False,
                 help='Overwrite the source layout if it exists')
@@ -31,7 +46,17 @@ class Create( Singleton ):
 
     def handle( self, args ):
         """:meth:`pluggdapps.interfaces.ICommand.handle` interface method."""
-        sett = { 'sitepath' : args.sitepath }
+        configfile = join( args.sitepath, args.configfile )
+        if isfile(configfile) :
+            siteconfig = json2dict( join( args.sitepath, configfile ))
+            layoutname = siteconfig['layout']
+        else :
+            layoutname = args.layout
+            siteconfig = {}
+
+        sett = { 'sitepath' : args.sitepath,
+                 'siteconfig' : siteconfig
+               }
         layout = self.qp( ILayout, args.layout, settings=sett )
         if not layout :
             raise Exception(
