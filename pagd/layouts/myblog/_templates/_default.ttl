@@ -4,23 +4,25 @@
 @include ./_footer.ttl
     
 <html>
-  <head> ${{ _head.body() }}
+  <head> ${ _head.body() }
   <body>
     <div #page>
-      <div #header> ${{ _header.body() }}
+      <div #header> ${ _header.body() }
       <div #container>
         @for fpath, metadata, htmltext  in page.articles :
-          <article> ${{ article(fpath, htmltext) }}
+          <article> ${ article(fpath, htmltext) }
+      @if site.siteconfig['disqus'] :
+        <div #myblog_disqus> ${ disqus_html | n }
     <hr>
-    <div #footer> ${{ _footer.body() }}
+    <div #footer> ${ _footer.body() }
 
 
 @def article(fpath, htmltext) :
-  <div .title> ${{title}}
+  <div .title> ${title}
   <div .pagemeta>
     @@ date = globals().get( 'date', globals()['last_modified'] )
     @if 'author' in globals() :
-      <span .author> by ${{author}} -
-    <span .date> ${{date}}
+      <span .author> by ${author} -
+    <span .date> ${date}
 
-  <div .content> ${{ htmltext }}
+  <div .content> ${ htmltext }

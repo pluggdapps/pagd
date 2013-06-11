@@ -204,6 +204,8 @@ class MyBlog( Plugin ):
         context.update({
             'last_modified' :time.strftime( "%a %b %d, %Y", time.gmtime(tms) ),
         })
+
+        context = self._disqus( context )
         return context
 
     def pagecontent( self, page ):
@@ -286,6 +288,12 @@ class MyBlog( Plugin ):
             contexts.insert(0, json2dict(f)) if isfile(f) else None
             path, _ = split( path )
         return contexts
+
+    def _disqus(self, context):
+        disqusf = join(self.sitepath, self['templatedir'], 'disqus.html')
+        if isfile(disqusf) :
+           context['disqus_html'] = open(disqusf).read()
+        return context
 
 
     #---- ISettings interface methods

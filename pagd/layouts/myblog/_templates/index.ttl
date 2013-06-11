@@ -4,11 +4,11 @@
 @include ./_footer.ttl
     
 <html>
-  <head> ${{ _head.body() }}
+  <head> ${ _head.body() }
   <body>
     <div #page>
-      <div #header> ${{ _header.body() }}
-      <div #container> ${{ page.articles[0][2] if page.articles else '' }}
+      <div #header> ${ _header.body() }
+      <div #container> ${ page.articles[0][2] if page.articles else '' }
     <hr>
-    <div #footer> ${{ _footer.body() }}
+    <div #footer> ${ _footer.body() }
 

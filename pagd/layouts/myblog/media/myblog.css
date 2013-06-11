@@ -11,41 +11,41 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {{
+time, mark, audio, video {
     margin: 0;
     padding: 0;
     border: 0;
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-}}
+}
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {{
+footer, header, hgroup, menu, nav, section {
     display: block;
-}}
+}
 
-body {{
+body {
     line-height: 1;
-}}
-ol, ul {{
+}
+ol, ul {
     list-style: none;
-}}
-blockquote, q {{
+}
+blockquote, q {
     quotes: none;
-}}
-blockquote:before, blockquote:after, q:before, q:after {{
+}
+blockquote:before, blockquote:after, q:before, q:after {
     content: '';
     content: none;
-}}
-table {{
+}
+table {
     border-collapse: collapse;
     border-spacing: 0;
-}}
+}
 
 /* myblog styles */
-body {{
+body {
     font-family: "Courier New", Courier, monospace;
     font-size: 18px;
     width : 800px;
@@ -54,106 +54,106 @@ body {{
     background-color : white;
     word-spacing: 3px;
     line-height: 1.4em;
-}}
+}
 
-h1, h2 {{
+h1, h2 {
     margin : 15px 0px;
     font-weight : bold;
-}}
+}
 
-b, strong {{
+b, strong {
     font-weight: bold;
-}}
+}
 
-i, cite, em, var, address, dfn {{
+i, cite, em, var, address, dfn {
     font-style: italic;
-}}
+}
 
-ul, ol {{
+ul, ol {
     list-style-type: disc;
     margin: 10px 0 10px 30px;
     padding: 0;
-}}
+}
 
-ul ul, ol ul {{
+ul ul, ol ul {
     list-style-type: circle;
-}}
+}
 
-dd {{
+dd {
     margin-left : 30px;
     margin-bottom : 10px;
-}}
+}
 
-p {{
+p {
     margin : 20px 0px;
-}}
+}
 
-img {{
+img {
     margin: 10px 10px;
-}}
+}
 
-em {{
+em {
     font-style : italic;
-}}
+}
 
-div.title {{
+div.title {
     margin : 40px 0px 20px 0px;
     font-weight : bold;
     font-size : larger;
-}}
+}
 
-div.pagemeta {{
+div.pagemeta {
     margin-top : -25px;
     font-size : smaller;
-}}
-span.author {{
+}
+span.author {
     color: green;
-}}
-span.lastmodified {{
+}
+span.lastmodified {
     color: gray;
-}}
+}
 
-div.highlight {{
+div.highlight {
     background-color: #EEE;
     width : 95%;
     margin : 0px auto;
     padding : 5px;
-}}
+}
 
-div#page {{
+div#page {
     border-left : 1px dashed gray;
     border-right : 1px dashed gray;
     padding : 10px 20px;
-}}
+}
 
-div#header {{
+div#header {
     font-weight : bold;
     font-size : larger;
-}}
+}
 
-div#header nav {{
+div#header nav {
     border-bottom : 1px dashed gray;
     padding : 5px 0px;
     color : gray
-}}
+}
 
-div#header a {{
+div#header a {
     padding-right : 40px;
     text-decoration : none;
-}}
+}
 
-div#container {{
+div#container {
     margin-top : 40px;
-}}
+}
 
-div#footer {{
+div#footer {
     font-size : smaller;
     color : gray;
     margin-bottom : 50px;
-}}
+}
 
-div#copyright {{
+div#copyright {
     text-align : right;
     float: right;
-}}
+}
 
