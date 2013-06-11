@@ -59,6 +59,25 @@ package are not fully tested - you can hack the code, contribute back with
 `github_ <https://github.com/prataprc/pagd>`_. Note that the orginal repository
 is maintained with mercurial and uses hg-git plugin to publish it on github.
 
+- generates static output, hence can be hosted anywhere.
+- pluggable layouts.
+
+  - I am currently using `pagd.myblog` layout for publishing my blog articles.
+  - It is possible to create any number of layout either as part of `pagd`
+    tool or as separate package.
+
+- everything that needs to get done by pagd is done through ``pagd`` command
+  line interface.
+- command line interface comes with simple sub-commands like,
+
+  - `create`, to create a new layout.
+  - `gen`, to generate static web site from a source layout.
+
+- sub-commands are plugins and can be extended by implementing
+  pagd.interfaces.ICommand interface.
+- 
+- to use pagd as python library, refer to ``script.py`` module under pagd
+  package.
 - only part that cannot be configured, constumized or entirely replaced, is
   the name of the tool ;)
 

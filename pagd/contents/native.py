@@ -18,9 +18,9 @@ class Native( Plugin ):
     format."""
     implements( IContent )
 
-    def __init__(self, siteconfig) :
-        self.siteconfig
-        setts = h.settingsfor('tayra.ttlcompiler.', siteconfig)
+    def __init__(self) :
+        self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
+        setts = h.settingsfor('tayra.ttlcompiler.', self.siteconfig)
         setts.update( debug=True )
         self.ttlplugin = self.qp(
                             pluggdapps.interfaces.ITemplate, 'tayra.TTLCompiler',

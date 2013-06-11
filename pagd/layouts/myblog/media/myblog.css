@@ -48,7 +48,7 @@ table {{
 body {{
     font-family: "Courier New", Courier, monospace;
     font-size: 18px;
-    width : 75%;
+    width : 800px;
     min-width : 640px;
     margin : 0px auto;
     background-color : white;
@@ -59,6 +59,24 @@ body {{
 h1, h2 {{
     margin : 15px 0px;
     font-weight : bold;
+}}
+
+b, strong {{
+    font-weight: bold;
+}}
+
+i, cite, em, var, address, dfn {{
+    font-style: italic;
+}}
+
+ul, ol {{
+    list-style-type: disc;
+    margin: 10px 0 10px 30px;
+    padding: 0;
+}}
+
+ul ul, ol ul {{
+    list-style-type: circle;
 }}
 
 dd {{

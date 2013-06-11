@@ -49,17 +49,16 @@ class MyBlog( Plugin ):
     def _cache_plugins(self):
         """Instantiate plugins available for :class:`ITemplate`,
         :class:`IXContext` and :class:`IContent` interfaces."""
+        sett = { 'siteconfig' : self.siteconfig }
         self._templates = {
-            typ : self.qp( ITemplate, caname, self.siteconfig )
+            typ : self.qp( ITemplate, caname, settings=sett )
             for typ, caname in self._templates.items()
         }
         self._xcontexts = {
-            p.caname : p 
-            for p in self.qps(IXContext, self.siteconfig)
+            p.caname : p for p in self.qps( IXContext, settings=sett )
         }
         self._icontents = {
-            p.caname : p 
-            for p in self.qps(IContent, self.siteconfig)
+            p.caname : p for p in self.qps( IContent, settings=sett )
         }
 
     #---- ILayout interface methods
@@ -102,7 +101,7 @@ class MyBlog( Plugin ):
         """
         regen = kwargs.get('regen', True)
         for page in self.pages() :
-            path = join(buildtarget, page.relpath)
+            path = abspath( join( buildtarget, page.relpath ))
             fname = abspath( join( path, page.pagename+'.html' ))
             self.pa.loginfo("    Generating `%r`" % fname)
 
@@ -126,7 +125,7 @@ class MyBlog( Plugin ):
                 ttype = page.context.get('templatetype', ext.lstrip('.'))
                 # generate page's html
                 html = self._templates[ttype].render( page )
-                os.makedirs( path, exist_ok=True )
+                os.makedirs(path, exist_ok=True) if not isdir(path) else None
                 open(fname, 'w').write(html)
 
 
