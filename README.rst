@@ -85,6 +85,8 @@ Features
   pagd.interfaces.ICommand interface.
 - to use pagd as python library, refer to ``script.py`` module under pagd
   package.
+- Integration with Disqus commenting system. Comments will be stored in
+  disqus' server.
 - only part that cannot be configured, constumized or entirely replaced, is
   the name of the tool ;)
 - **License:** `GPLv3 license`_

@@ -4,6 +4,9 @@ A roadmap of things to do
 * Title line should include age of the document,
   ``by prataprc - last modified: Sun Jun 02, 2013 - 2years 1month old``
 
+* Facebook integration. There are aweful lot of ways to integrate a page with
+  facebook. Do we really need them all ?
+
 * Check copyright header for all modules.
 
 * Added social sharing for `myblog` layout.
