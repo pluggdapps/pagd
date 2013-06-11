@@ -1,3 +1,8 @@
+Myblog layout plugin
+===================
+
+This article explains myblog layout.
+
 directory structure
 -------------------
 
@@ -18,7 +23,7 @@ layout. If left unspecified uses a default layout.
 Refer to the glossary_ page before continuing further. The above command will
 create following directory tree,
 
-.. code-block::
+.. code-block:: text
 
     +- config.json
     +- _contents/
@@ -35,18 +40,20 @@ create following directory tree,
        +- _head.ttl
        +- index.ttl
 
-Following is the general idea on how `pagd.myblog` layout works, ::
+Following is the general idea on how `pagd.myblog` layout works,
+
+.. code-block:: text
 
        +------+    +---------+      +-------------+
        |layout|--->|generator|<---->|page-iterator| 
        +------+    +---------+      +-------------+
                         |                  ^
                         |                  |          +------------+
-                        V                  *<---------|page-context|
+                        V                  +<---------|page-context|
                    +---------+             |          +------------+
                    |Html-page|             |       
                    +---------+             |          +-------------+
-                        |                  *<---------|page-template|
+                        |                  +<---------|page-template|
                         |                  |          +-------------+
                         V            +------------+
                    +--------+        |page-content|
