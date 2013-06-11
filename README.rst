@@ -1,3 +1,6 @@
+General idea
+------------
+
 Static web site generator, based on well understood MVC_ - Model, View,
 Controller - design philosophy. The general idea behind MVC from web
 application's perspective is ::
@@ -59,12 +62,21 @@ package are not fully tested - you can hack the code, contribute back with
 `github_ <https://github.com/prataprc/pagd>`_. Note that the orginal repository
 is maintained with mercurial and uses hg-git plugin to publish it on github.
 
+Refer to this glossary_ of terms and learn more by going through pagd.myblog_
+layout-plugin.
+
+Features
+--------
+
 - generates static output, hence can be hosted anywhere.
 - pluggable layouts.
 
   - I am currently using `pagd.myblog` layout for publishing my blog articles.
   - It is possible to create any number of layout either as part of `pagd`
     tool or as separate package.
+  - although layouts are encouraged to follow the Model-View-Controller
+    concept explained above, it is entire upto the layout-plugin to define
+    structure and meaning of source directory-tree.
 
 - everything that needs to get done by pagd is done through ``pagd`` command
   line interface.
@@ -75,7 +87,6 @@ is maintained with mercurial and uses hg-git plugin to publish it on github.
 
 - sub-commands are plugins and can be extended by implementing
   pagd.interfaces.ICommand interface.
-- 
 - to use pagd as python library, refer to ``script.py`` module under pagd
   package.
 - only part that cannot be configured, constumized or entirely replaced, is
@@ -95,4 +106,5 @@ is maintained with mercurial and uses hg-git plugin to publish it on github.
 .. _python-markdown: https://pypi.python.org/pypi/Markdown
 .. _docutils: https://pypi.python.org/pypi/docutils
 .. _python-lxml: https://pypi.python.org/pypi/lxml
-
+.. _pagd.myblog: ./docs/myblog.rst
+.. _glossary: ./docs/glossary.rst
