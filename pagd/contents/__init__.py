@@ -4,6 +4,11 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
+"""Contains a collection of plugins to parse content text from source layout
+and generate html text for each page. The module also defines a collection of
+library utilities that can be used by the plugins.
+"""
+
 import re
 
 import pagd.contents.native     # Translate content in native python.

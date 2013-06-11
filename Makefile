@@ -8,7 +8,11 @@ develop :
 	@echo "Setting up virtual environment for python 3.x ..."
 	@virtualenv --python=python3.2 pa-env
 	@bash -c "source pa-env/bin/activate ; python ./setup.py develop"
-	@bash -c "source pa-env/bin/activate ; easy_install-3.2 sphinx"
+	@bash -c "source pa-env/bin/activate ; pip install sphinx"
+
+# Generate binary egg distribution.
+bdist_egg :
+	python ./setup.py bdist_egg
 
 # Generate source distribution. This is the command used to generate the
 # public distribution package.
@@ -20,6 +24,7 @@ sphinx-compile :
 	pa -w confdoc -p pagd -o docs/configuration.rst
 	cp README.rst docs/index.rst
 	cp CHANGELOG.rst docs/
+	cp TODO.rst docs/
 	cat docs/index.rst.inc >> docs/index.rst
 	rm -rf docs/_build/html/
 	make -C docs html
@@ -33,7 +38,7 @@ upload :
 	python ./setup.py sdist register -r http://www.python.org/pypi upload -r http://www.python.org/pypi
 	
 # Push code to repositories.
-pushcode: push-github 
+pushcode: push-github
 
 push-github:
 	hg bookmark -f -r default master

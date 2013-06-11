@@ -15,7 +15,8 @@ class Gen( Singleton ):
     """Sub-command plugin to generate static web site at the given target
     directory. If a target directory is not specified, it uses layout's
     default target directory. For more information refer to corresponding
-    layout plugin's documentation."""
+    layout plugin's documentation.
+    """
     implements( ICommand )
 
     cmd = 'gen'
@@ -43,7 +44,12 @@ class Gen( Singleton ):
         return parser
 
     def handle( self, args ):
-        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method."""
+        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method.
+
+        Instantiate a layout plugin and apply generate() method on the
+        instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
+        passed as settings dictionary.
+        """
         configfile = join( args.sitepath, args.configfile )
         if isfile(configfile) :
             siteconfig = json2dict( join( args.sitepath, configfile ))

@@ -4,6 +4,13 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
+"""Collection of interfaces that can be stitch together to do static 
+site-generation. Note that these interfaces are loosely defined and does not
+impose a strict design for users. Almost always the design is enforced by
+:class:`ILayout` plugins.
+"""
+
+
 from   pluggdapps.plugin    import Interface
 
 class ILayout(Interface):

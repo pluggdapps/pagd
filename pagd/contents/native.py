@@ -15,7 +15,15 @@ from   pagd.interfaces      import IContent
 
 class Native( Plugin ):
     """Plugin that can translate different content formats into html
-    format."""
+    format using python native modules. Uses function APIs defined under
+    :mod:`pagd.contents` module, except for ttl2html.
+
+    Supports reStructuredText, Markdown, plain-text, plain-html,
+    tayra-templates text.
+
+    Note that in case of a TTL file, it is interpreted as page content and not
+    as template for this or any other page-contents.
+    """
     implements( IContent )
 
     def __init__(self) :
@@ -32,8 +40,9 @@ class Native( Plugin ):
         """For ``page``, an instance of :class:`Page` class, using its
         ``contentfiles`` attribute, translate each file's text to html and
         return a corresponding list of articles. Where each element in the
-        article is a tuple of,
-            ( article's fpath, dictionary-of-metadata, html-text ).
+        article is a tuple of, ::
+
+            ( article's fpath, dictionary-of-metadata, html-text )
         """
 
         articles = []

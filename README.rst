@@ -3,7 +3,9 @@ General idea
 
 Static web site generator, based on well understood MVC_ - Model, View,
 Controller - design philosophy. The general idea behind MVC from web
-application's perspective is ::
+application's perspective is
+
+.. code-block:: text
 
                                       +--------+
                                       |template|
@@ -37,7 +39,9 @@ The general idea being that,
 
 ``pagd`` follows, more or less, a similar principle to build a web-site from a
 collection of files organised as a directory tree. Here is a brief idea on how
-it is done ::
+it is done
+
+.. code-block:: text
 
 
        +------+    +---------+      +-------------+
@@ -45,25 +49,17 @@ it is done ::
        +------+    +---------+      +-------------+
                         |                  ^
                         |                  |          +------------+
-                        V                  *<---------|page-context|
+                        V                  +<---------|page-context|
                    +---------+             |          +------------+
                    |Html-page|             |       
                    +---------+             |          +-------------+
-                        |                  *<---------|page-template|
+                        |                  +<---------|page-template|
                         |                  |          +-------------+
                         V            +------------+
                    +--------+        |page-content|
                    |web-site|        +------------+
                    +--------+      
 
-
-``pagd`` core-design is stable. Some plugins, that are shipped along ``pagd``
-package are not fully tested - you can hack the code, contribute back with
-`github_ <https://github.com/prataprc/pagd>`_. Note that the orginal repository
-is maintained with mercurial and uses hg-git plugin to publish it on github.
-
-Refer to this glossary_ of terms and learn more by going through pagd.myblog_
-layout-plugin.
 
 Features
 --------
@@ -75,8 +71,8 @@ Features
   - It is possible to create any number of layout either as part of `pagd`
     tool or as separate package.
   - although layouts are encouraged to follow the Model-View-Controller
-    concept explained above, it is entire upto the layout-plugin to define
-    structure and meaning of source directory-tree.
+    concept explained above, it is upto the layout-plugin to define a structure
+    and meaning of layout's source directory-tree.
 
 - everything that needs to get done by pagd is done through ``pagd`` command
   line interface.
@@ -91,20 +87,42 @@ Features
   package.
 - only part that cannot be configured, constumized or entirely replaced, is
   the name of the tool ;)
-
 - **License:** `GPLv3 license`_
 - **Requires:** Linux, Python-3.x, Pluggdapps.
-    - To interpret markdown text, python-markdown_ needs to be installed.
-    - To interpret rst text, docutils_ needs to be installed.
-    - To interpret raw-html, python-lxml_ needs to be installed.
-    - If you need source code highlighting in your rst text, ``pygments`` and
-      ``docutils`` needs to be installed.
+
+  - To interpret markdown text, python-markdown_ needs to be installed.
+  - To interpret rst text, docutils_ needs to be installed.
+  - To interpret raw-html, python-lxml_ needs to be installed.
+  - If you need source code highlighting in your rst text, pygments_ and
+    docutils_ needs to be installed.
+
 - **Status:** Core design stable. Not expected to change.
+
+Refer to glossary_ and documentation for default layout pagd.myblog_.
+
+Related links
+-------------
+
+* `package documentation`_.
+* changelog_.
+* todo_.
+* mailing-list_.
+
+pagd is under development - you can hack the code, contribute back with
+`github <https://github.com/prataprc/pagd>`_. Note that the orginal
+repository is maintained with mercurial and uses hg-git plugin to publish it
+on github.
 
 .. _MVC: http://en.wikipedia.org/wiki/Model-view-controller
 .. _GPLv3 license:  http://www.gnu.org/licenses/
 .. _python-markdown: https://pypi.python.org/pypi/Markdown
 .. _docutils: https://pypi.python.org/pypi/docutils
+.. _pygments: https://pypi.python.org/pypi/pygments
 .. _python-lxml: https://pypi.python.org/pypi/lxml
-.. _pagd.myblog: ./docs/myblog.rst
-.. _glossary: ./docs/glossary.rst
+
+.. _pagd.myblog: http://pythonhosted.org/pagd/myblog.html
+.. _glossary: http://pythonhosted.org/pagd/glossary.html
+.. _package documentation: http://pythonhosted.org/pagd
+.. _changelog: http://pythonhosted.org/pagd/CHANGELOG.html
+.. _todo: http://pythonhosted.org/pagd/TODO.html
+.. _mailing-list: http://groups.google.com/group/pluggdapps

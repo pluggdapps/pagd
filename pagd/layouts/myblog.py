@@ -17,7 +17,7 @@ from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page
 
 class MyBlog( Plugin ):
     """A layout plugin to generate personal blog sites. Support create, gen,
-    newpage interfaces to corresponding sub-commands.
+    newpage interfaces APIs for corresponding sub-commands.
     """
 
     implements(ILayout)

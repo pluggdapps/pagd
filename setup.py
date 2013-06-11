@@ -55,7 +55,8 @@ setup(
         ],
     },
     install_requires=[                      # setuptools
-        'pluggdapps>=0.2dev',
+        'pluggdapps>=0.41dev',
+        'tayra>=0.42dev',
     ],
     extras_require={},                      # setuptools
     setup_requires={},                      # setuptools

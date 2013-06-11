@@ -13,7 +13,8 @@ from   pagd.lib              import json2dict
 
 class NewPage( Singleton ):
     """Sub-command plugin to generate a new content page under
-    layout-sitepath."""
+    layout-sitepath.
+    """
     implements( ICommand )
 
     cmd = 'newpage'
@@ -36,7 +37,12 @@ class NewPage( Singleton ):
         return parser
 
     def handle( self, args ):
-        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method."""
+        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method.
+        
+        Instantiate a layout plugin and apply newpage() method on the
+        instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
+        passed as settings dictionary.
+        """
         configfile = join( args.sitepath, args.configfile )
         if isfile(configfile) :
             siteconfig = json2dict( join( args.sitepath, configfile ))

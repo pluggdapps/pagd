@@ -4,8 +4,8 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
-"""Pagd is static web site creator. Based on pluggdapps component system, it can
-be extended in many ways."""
+"""Pagd is static web site creator based on pluggdapps component system - it
+can be extended in many ways."""
     
 __version__ = '0.1dev'
 

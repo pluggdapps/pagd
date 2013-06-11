@@ -14,7 +14,12 @@ from   pagd.interfaces      import IContent
 
 class Pandoc( Plugin ):
     """Plugin that can translate different content formats into html
-    format. Under development, contributions are welcome."""
+    format. Under development, contributions are welcome.
+
+    Make sure that pandoc tool is installed and available through shell
+    command line interface. Supports reStructuredText and Markdown content
+    formats.
+    """
     implements( IContent )
 
     def __init__(self) :

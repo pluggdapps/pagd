@@ -30,6 +30,9 @@ class Create( Singleton ):
     #---- ICommand API
     def subparser( self, parser, subparsers ):
         """:meth:`pluggdapps.interfaces.ICommand.subparser` interface method.
+
+        * -g switch can be used to supply a configuration file for layout.
+        * -f switch will overwrite if ``sitepath`` already contains a layout.
         """
         self.subparser = subparsers.add_parser( 
                                 self.cmd, description=self.description )
@@ -45,7 +48,12 @@ class Create( Singleton ):
         return parser
 
     def handle( self, args ):
-        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method."""
+        """:meth:`pluggdapps.interfaces.ICommand.handle` interface method.
+        
+        Instantiate a layout plugin and apply create() method on the
+        instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
+        passed as settings dictionary.
+        """
         configfile = join( args.sitepath, args.configfile )
         if isfile(configfile) :
             siteconfig = json2dict( join( args.sitepath, configfile ))
