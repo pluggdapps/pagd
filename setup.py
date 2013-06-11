@@ -30,7 +30,7 @@ classifiers = [
 'Environment :: Web Environment',
 'Intended Audience :: Developers',
 'Programming Language :: Python :: 3.2',
-'Topic :: Internet :: WWW/HTTP ::',
+'Topic :: Internet :: WWW/HTTP',
 ]
 
 setup(
