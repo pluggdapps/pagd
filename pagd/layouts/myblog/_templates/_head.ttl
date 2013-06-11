@@ -1,5 +1,6 @@
 <link text/css "media/myblog.css" rel="stylesheet">
 <link text/css "media/pygments.css" rel="stylesheet">
+<title> ${{title}}
 
 @for g_webfont in google_webfonts :
   <link text/css "${{ g_webfont['src'] }}" rel='stylesheet'>

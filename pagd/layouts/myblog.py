@@ -156,7 +156,8 @@ class MyBlog( Plugin ):
                 page.context = {
                     'site' : page.site,
                     'page' : page,
-                    'title' : page.pagename
+                    'title' : page.pagename,
+                    'layout' : site.siteconfig.get('layout', self.caname),
                 }
                 yield page
 
