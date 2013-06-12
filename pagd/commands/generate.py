@@ -40,7 +40,7 @@ class Gen( Singleton ):
         self.subparser.add_argument(
                 '-r', '--regen', dest='regen',
                 action='store_true', default=False,
-                help='Regenerate all source files.')
+                help='Regenerate all site pages.')
         return parser
 
     def handle( self, args ):

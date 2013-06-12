@@ -15,18 +15,7 @@ A roadmap of things to do
   generate the HTML ? as list of individual articles ? or as tabbed version of
   articles ?
 
-* Check copyright header for all modules.
-
 * Added social sharing for `myblog` layout.
-
-* Add discus plugin for `myblog` layout.
-
-* In command-line documentation article indicate that developers should check
-  for existing commands before authoring a new-command to avoid duplicating
-  names.
-
-* Create a basic layout for simple web sites and make that as default in
-  pagd.commands.create module and other related modules.
 
 * `regen` option in generate sub-command is yet to be implemented.
 

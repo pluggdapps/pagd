@@ -18,6 +18,16 @@ pagd.gen
 
 -- configuration is not supported by plugin --
 
+pagd.jinja2
+-----------
+
+-- configuration is not supported by plugin --
+
+pagd.mako
+---------
+
+-- configuration is not supported by plugin --
+
 pagd.myblog
 -----------
 

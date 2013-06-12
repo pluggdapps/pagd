@@ -4,22 +4,26 @@ A roadmap of things to do
 * Title line should include age of the document,
   ``by prataprc - last modified: Sun Jun 02, 2013 - 2years 1month old``
 
-* Check copyright header for all modules.
+* Facebook integration. There are aweful lot of ways to integrate a page with
+  facebook. Do we really need them all ?
+
+* rst directive for you-tube and image gallery.
+
+* Support asciidoc content parsing.
+
+* if more that one article-content is detected for the same page-url, how to
+  generate the HTML ? as list of individual articles ? or as tabbed version of
+  articles ?
 
 * Added social sharing for `myblog` layout.
-
-* Add discus plugin for `myblog` layout.
-
-* In command-line documentation article indicate that developers should check
-  for existing commands before authoring a new-command to avoid duplicating
-  names.
-
-* Create a basic layout for simple web sites and make that as default in
-  pagd.commands.create module and other related modules.
 
 * `regen` option in generate sub-command is yet to be implemented.
 
 * Cache templates while generating the target site.
+
+* Merge support when using `create -f`. A 3-way merge is there, find a clean
+  solution for this.
+
 
 Release check-list 
 ------------------

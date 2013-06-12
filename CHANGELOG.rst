@@ -3,7 +3,7 @@ CHANGELOG
 
 List of release changes.
 
-0.2dev
+0.11dev
 ------
 
 ``Wed Jun 12, 2013``

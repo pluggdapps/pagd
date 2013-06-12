@@ -1,5 +1,5 @@
-General idea
-------------
+Overview
+--------
 
 Static web site generator, based on well understood MVC_ - Model, View,
 Controller - design philosophy. The general idea behind MVC from web
@@ -83,10 +83,17 @@ Features
 
 - sub-commands are plugins and can be extended by implementing
   pagd.interfaces.ICommand interface.
+- web-site templates can be designed using `tayra template`_.
+  - experimental feature is available for mako and jinja2. If face problems
+    with these templates, kindly let us know.
 - to use pagd as python library, refer to ``script.py`` module under pagd
   package.
+- integration with disqus commenting system. Comments will be stored in
+  disqus' server.
+- reStructuredText directive for code syntax highlighting.
 - only part that cannot be configured, constumized or entirely replaced, is
   the name of the tool ;)
+
 - **License:** `GPLv3 license`_
 - **Requires:** Linux, Python-3.x, Pluggdapps.
 
@@ -120,6 +127,7 @@ on github.
 .. _pygments: https://pypi.python.org/pypi/pygments
 .. _python-lxml: https://pypi.python.org/pypi/lxml
 
+.. _tayra template: http://pythonhosted.org/tayra
 .. _pagd.myblog: http://pythonhosted.org/pagd/myblog.html
 .. _glossary: http://pythonhosted.org/pagd/glossary.html
 .. _package documentation: http://pythonhosted.org/pagd

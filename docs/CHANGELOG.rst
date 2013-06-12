@@ -3,6 +3,14 @@ CHANGELOG
 
 List of release changes.
 
+0.2dev
+------
+
+``Wed Jun 12, 2013``
+
+- Added disqus plugin for pagd.myblog plugin. Can be enabled in config.json.
+- Experimental support for mako and jinja2 templates.
+
 0.1dev
 ------
 
