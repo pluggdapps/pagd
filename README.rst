@@ -1,5 +1,5 @@
-General idea
-------------
+Overview
+--------
 
 Static web site generator, based on well understood MVC_ - Model, View,
 Controller - design philosophy. The general idea behind MVC from web

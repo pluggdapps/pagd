@@ -5,14 +5,17 @@
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
 import io
-from   mako.template import Template
-from   mako.runtime import Context
 
 from   pluggdapps.plugin        import Plugin, implements
 import pluggdapps.utils         as h
 import pluggdapps.interfaces
 
 import pagd.interfaces
+
+try    :
+    from   mako.template import Template
+    from   mako.runtime import Context
+except : pass
 
 class Mako( Plugin ):
     """Plugin to translate mako templates to html files."""
