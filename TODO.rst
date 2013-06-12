@@ -1,8 +1,6 @@
 A roadmap of things to do
 =========================
 
-* Merge support when using `create -f`.
-
 * Title line should include age of the document,
   ``by prataprc - last modified: Sun Jun 02, 2013 - 2years 1month old``
 
@@ -25,6 +23,10 @@ A roadmap of things to do
 * `regen` option in generate sub-command is yet to be implemented.
 
 * Cache templates while generating the target site.
+
+* Merge support when using `create -f`. A 3-way merge is there, find a clean
+  solution for this.
+
 
 Release check-list 
 ------------------

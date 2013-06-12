@@ -23,6 +23,6 @@
     @@ date = globals().get( 'date', globals()['last_modified'] )
     @if 'author' in globals() :
       <span .author> by ${author} -
-    <span .date> ${date}
+    <span .date> ${date};
 
   <div .content> ${ htmltext }

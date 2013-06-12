@@ -109,8 +109,8 @@ div.pagemeta {
 span.author {
     color: green;
 }
-span.lastmodified {
-    color: gray;
+span.date, span.last_modified {
+    color: black;
 }
 
 div.highlight {
