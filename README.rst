@@ -88,8 +88,9 @@ Features
     with these templates, kindly let us know.
 - to use pagd as python library, refer to ``script.py`` module under pagd
   package.
-- Integration with disqus commenting system. Comments will be stored in
+- integration with disqus commenting system. Comments will be stored in
   disqus' server.
+- reStructuredText directive for code syntax highlighting.
 - only part that cannot be configured, constumized or entirely replaced, is
   the name of the tool ;)
 
