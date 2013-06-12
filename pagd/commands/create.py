@@ -72,13 +72,9 @@ class Create( Singleton ):
                 "`layout` in the right place and the environment variable "
                 "has been setup properly if you are using custom path for "
                 "layouts")
-        if layout.is_exist() and not args.overwrite :
-            raise Exception(
-                "The given site path %r already contains a %r layout. "
-                "Use -f to overwrite." % (args.sitepath, args.layout) )
         self.pa.loginfo(
             "Creating site at [%s] with layout [%s] ..." %
             (args.sitepath, args.layout))
-        layout.create()
+        layout.create( overwrite=args.overwrite )
         self.pa.loginfo("... complete")
 

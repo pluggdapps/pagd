@@ -1,6 +1,8 @@
 A roadmap of things to do
 =========================
 
+* Merge support when using `create -f`.
+
 * Title line should include age of the document,
   ``by prataprc - last modified: Sun Jun 02, 2013 - 2years 1month old``
 

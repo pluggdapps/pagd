@@ -80,9 +80,10 @@ class MyBlog( Plugin ):
         """
         if not isdir( self['sitepath'] ) :
             os.makedirs( self['sitepath'], exist_ok=True )
-        _vars = { 'sitepath' : self.sitepath,
-                }
-        h.template_to_source( self.layoutpath, self.sitepath, _vars )
+        _vars = { 'sitepath' : self.sitepath, }
+        overwrite = kwargs.get('overwrite', False)
+        h.template_to_source( self.layoutpath, self.sitepath, _vars,
+                              overwrite=overwrite, verbose=True )
 
     def generate(self, buildtarget, **kwargs) :
         """Generate a static, personal blog site from the layout under
