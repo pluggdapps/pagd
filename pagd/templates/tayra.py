@@ -6,9 +6,9 @@
 
 from   pluggdapps.plugin        import Plugin, implements
 import pluggdapps.utils         as h
+import pluggdapps.interfaces
 
 import pagd.interfaces
-import pluggdapps.interfaces
 
 class Tayra( Plugin ):
     """Plugin to translate tayra templates to html files."""

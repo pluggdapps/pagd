@@ -48,8 +48,14 @@ class MyBlog( Plugin ):
 
     def _cache_plugins(self):
         """Instantiate plugins available for :class:`ITemplate`,
-        :class:`IXContext` and :class:`IContent` interfaces."""
-        sett = { 'siteconfig' : self.siteconfig }
+        :class:`IXContext` and :class:`IContent` interfaces.
+        
+        siteconfig and sitepath will be passed as plugin-settings for all
+        instantiated plugins. 
+        """
+        sett = { 'siteconfig' : self.siteconfig,
+                 'sitepath' : self.sitepath
+               }
         self._templates = {
             typ : self.qp( ITemplate, caname, settings=sett )
             for typ, caname in self._templates.items()

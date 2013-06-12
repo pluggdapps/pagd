@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+
+# This file is subject to the terms and conditions defined in
+# file 'LICENSE', which is part of this source code package.
+#       Copyright (c) 2013 R Pratap Chakravarthy
+
+import io
+from   mako.template import Template
+from   mako.runtime import Context
+
+from   pluggdapps.plugin        import Plugin, implements
+import pluggdapps.utils         as h
+import pluggdapps.interfaces
+
+import pagd.interfaces
+
+class Mako( Plugin ):
+    """Plugin to translate mako templates to html files."""
+    implements( pagd.interfaces.ITemplate )
+
+    def __init__( self ):
+        self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
+        self.kwargs = {
+            'module_directory' : \
+                    self['siteconfig'].get('mako.module_directory', None),
+        }
+
+    def render( self, page ):
+        mytemplate = Template( page.templatefile, **self.kwargs )
+        buf = io.StringIO()
+        mytemplate.render_context( Context(buf, **page.context) )
+        return buf.getvalue()
+
+
+
+

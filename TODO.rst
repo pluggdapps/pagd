@@ -7,6 +7,14 @@ A roadmap of things to do
 * Facebook integration. There are aweful lot of ways to integrate a page with
   facebook. Do we really need them all ?
 
+* rst directive for you-tube and image gallery.
+
+* Support asciidoc content parsing.
+
+* if more that one article-content is detected for the same page-url, how to
+  generate the HTML ? as list of individual articles ? or as tabbed version of
+  articles ?
+
 * Check copyright header for all modules.
 
 * Added social sharing for `myblog` layout.
