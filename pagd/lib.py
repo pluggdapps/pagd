@@ -113,7 +113,11 @@ class Page(object):
         List of files, in absolute path, that contains contents for this page.
 
     ``articles``,
-        Dictionary of article name and its content value.
+        List of article tuples which each tuple is made up of,
+        ``( article's fpath, article-context, html-text )``. Article's
+        file-path is the absolute path of the content file which was
+        translated to `html-text`. Article's context  is ``page.context``
+        overrided with meta-data from file-content.
 
     ``context``,
         Dictionary of context attributes for page.

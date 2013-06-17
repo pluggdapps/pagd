@@ -22,7 +22,6 @@ class Mako( Plugin ):
     implements( pagd.interfaces.ITemplate )
 
     def __init__( self ):
-        self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
         self.kwargs = {
             'module_directory' : \
                     self['siteconfig'].get('mako.module_directory', None),

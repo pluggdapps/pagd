@@ -18,7 +18,6 @@ class Jinja2( Plugin ):
     implements( pagd.interfaces.ITemplate )
 
     def __init__( self ):
-        self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
         kwargs = {
             'loader'      : FileSystemLoader( self['sitepath'] ),
             'auto_reload' : self['siteconfig'].get('jinja2.auto_reload', False),

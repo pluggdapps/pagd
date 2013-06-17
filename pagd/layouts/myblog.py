@@ -109,21 +109,27 @@ class MyBlog( Plugin ):
         regen = kwargs.get('regen', True)
         for page in self.pages() :
             path = abspath( join( buildtarget, page.relpath ))
-            fname = abspath( join( path, page.pagename+'.html' ))
-            self.pa.loginfo("    Generating `%r`" % fname)
+            fname = page.pagename + '.html'
+            self.pa.loginfo("    Generating `%r`" % join(page.relpath, fname) )
 
             # Gather page context
             page.context.update( self.pagecontext( page ))
 
             # Gather page content
-            page = self.pagecontent( page )
+            page.articles = self.pagecontent( page )
 
             # page content can also have context, in the form of metadata
+            # IMPORTANT : myblog will always have one article only.
             for fpath, metadata, content in page.articles :
-                # If _xcontext is available
-                p = self._xcontexts.get(metadata.get('_xcontext', None), None)
                 page.context.update( metadata )
-                page.context.update( p.fetch(page) ) if p else None
+                page.context.update(
+                    self._fetch_xc( metadata.get('_xcontext', ''), page ))
+                # last_modified 
+                if 'last_modified' not in page.context :
+                    page.context.update( last_modified=h.age(getmtime(fpath)) )
+
+            # If skip_context is present then apply them,
+            page = self._skip_context( page )
 
             # Find a template for this page.
             page.templatefile = self.pagetemplate(page) # Locate the templage
@@ -133,7 +139,8 @@ class MyBlog( Plugin ):
                 # generate page's html
                 html = self._templates[ttype].render( page )
                 os.makedirs(path, exist_ok=True) if not isdir(path) else None
-                open(fname, 'w').write(html)
+                open( abspath( join( path, fname )), 'w' ).write(html)
+                
 
 
     SPECIALPAGES = ['_context.json']
@@ -165,7 +172,13 @@ class MyBlog( Plugin ):
                     'page' : page,
                     'title' : page.pagename,
                     'layout' : site.siteconfig.get('layout', self.caname),
+                    'author' : None,
+                    'email' : None,
+                    'createdon' : None,
+                    'last_modified' : None,
+                    'date' : None,
                 }
+                page.articles = []
                 yield page
 
     def pagecontext( self, page ):
@@ -204,15 +217,7 @@ class MyBlog( Plugin ):
         # `_xcontext` attribute and fetch the context from external source.
         for c in contexts :
             context.update(c)
-            plugin = self._xcontexts.get( c.get('_xcontext', None), None )
-            context.update( plugin.fetch(page) ) if plugin else None
-
-        tms = max([ getmtime(f) for f in page.contentfiles ])
-        context.update({
-            'last_modified' :time.strftime( "%a %b %d, %Y", time.gmtime(tms) ),
-        })
-
-        context = self._disqus( context )
+            context.update( self._fetch_xc( c.get('_xcontext', ''), page ))
         return context
 
     def pagecontent( self, page ):
@@ -223,15 +228,15 @@ class MyBlog( Plugin ):
         considered as part of same page and translated to html based on the
         extension type.
 
-        Updates ``page.articles`` attribute with a list of translated html and
-        returns the page instance. Refer to :class:``Page`` class and its
-        ``articles`` attribute to know its data-structure."""
+        Return a single element list of articles, each article as tuple.
+        Refer to :class:``Page`` class and its ``articles`` attribute to know
+        its data-structure."""
 
         n = page.context.get('IContent', self['IContent'])
         name = n if n in self._icontents else _default_settings['IContent']
         icont = self._icontents.get( name, None )
-        page.articles = icont.articles(page) if icont else []
-        return page
+        articles = icont.articles(page) if icont else []
+        return articles
 
     def pagetemplate( self, page ):
         """For every page that :meth:`pages` method iterates, a corresponding
@@ -296,12 +301,18 @@ class MyBlog( Plugin ):
             path, _ = split( path )
         return contexts
 
-    def _disqus(self, context):
-        disqusf = join(self.sitepath, self['templatedir'], 'disqus.html')
-        if isfile(disqusf) :
-           context['disqus_html'] = open(disqusf).read()
-        return context
+    def _skip_context(self, page):
+        attrs = h.parsecsv( page.site.siteconfig.get( 'skip_context', '' ))
+        [ page.context.pop(attr, None) for attr in attrs ]
+        return page
 
+    def _fetch_xc(self, page, _xc) :
+        ps = h.parsecsv( _xc )
+        context = {}
+        for s in ps :
+            p = self._xcontexts.get(s, None)
+            context.update( p.fetch(page) ) if p else None
+        return context
 
     #---- ISettings interface methods
 
