@@ -125,18 +125,28 @@ class IContent(Interface):
 
         Return a tuple of,
             ( article's fpath, dictionary-of-metadata, html-text ).
+
+        Note that meta-data for each article will finally include context
+        attributes from page's context json, default-json and even external
+        context if supplied.
         """
 
 
 class IXContext(Interface):
     """Interface specification to fetch page context from external sources."""
 
-    def fetch( page ):
-        """Fetch the context from external source for page.
+    def fetch( page=None, article=None ):
+        """Fetch the context from external source for page. Some times, if
+        more than one article is present for a page, then instead of using
+        ``page`` keyword, supply the ``article`` keyword.
 
         ``page``,
             an instance of class :class:`Page`. Contains page description and
             its context gathered so far.
+
+        ``article``,
+            a tuple of article content and metadata, refer to :class:`Page`
+            for exact detail.
 
         Return a python dictionary of context attributes. Context must contain
         basic python data-types like integers, float, string, list, tuple,
