@@ -80,8 +80,8 @@ class ILayout(Interface):
         markdown, or even raw html. Refer to corresponding :class:`IContent`
         plugin to know supported formats.
 
-        Retun back the page object with its ``articles`` attribute updated
-        with list of html text.
+        Retun back list of ``articles``. Refer to :class:`Page` class to know
+        the structure of article element.
         """
 
     def pagetemplate(page):
