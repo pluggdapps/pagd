@@ -102,16 +102,26 @@ div.title {
     font-size : larger;
 }
 
-div.pagemeta {
+div.metaa, div.metaz {
+    font-family: "Courier New", Courier, monospace;
     margin-top : -25px;
     font-size : smaller;
 }
-span.author {
+div.metaa .author {
     color: green;
 }
-span.date, span.last_modified {
-    color: black;
+div.metaa .date, div.metaz .last_modified {
+    color: gray;
 }
+div.content {
+}
+div.metaz .email {
+}
+div.metaz #myblog_social {
+}
+div.metaz #myblog_disqus {
+}
+
 
 div.highlight {
     background-color: #EEE;

@@ -2,6 +2,7 @@
 @include ./_head.ttl
 @include ./_header.ttl
 @include ./_footer.ttl
+@include ./_social.ttl
     
 <html>
   <head> ${ _head.body() }
@@ -9,20 +10,31 @@
     <div #page>
       <div #header> ${ _header.body() }
       <div #container>
-        @for fpath, metadata, htmltext  in page.articles :
-          <article> ${ article(fpath, htmltext) }
+        @@ fpath, metadata, htmltext = page.articles[0]
+        ${ article(fpath, htmltext) }
       @if site.siteconfig['disqus'] :
-        <div #myblog_disqus> ${ disqus_html | n }
+        <div #myblog_disqus>
+          ${ h.readfile( os.path.join('_social', 'disqus.html') ) }
     <hr>
     <div #footer> ${ _footer.body() }
 
 
 @def article(fpath, htmltext) :
-  <div .title> ${title}
-  <div .pagemeta>
-    @@ date = globals().get( 'date', globals()['last_modified'] )
-    @if 'author' in globals() :
-      <span .author> by ${author} -
-    <span .date> ${date};
+  <article>
+    <div .title> ${title}
+    <div .metaa>
+      @if author :
+        <span .author> by ${author};
+      @if createdon or date :
+        <span .date> ${createdon or date}
 
-  <div .content> ${ htmltext }
+    <div .content> ${ htmltext }
+
+    <div .metaz>
+      @if last_modified :
+        <span .last_modified> last modified : ${last_modified}
+      @if site.siteconfig['show_email'] and email :
+        <a .email href="mailto:${email}"> contact author
+      @if site.siteconfig['social_sharing'] :
+        <span #myblog_social>
+          share with ${ _social.body() }

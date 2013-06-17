@@ -1,0 +1,13 @@
+@@ shares = h.parsecsv( site.siteconfig['social_sharing'] )
+@if 'twitter' in shares :
+  ${ h.readfile( os.path.join('_social', 'twitter.html') ) }
+@if 'google' in shares or 'g+' in shares or 'google+' in shares :
+  ${ h.readfile( os.path.join('_social', 'google+.html') ) }
+@if 'hackernews' in shares or 'hn' in shares :
+  ${ h.readfile( os.path.join('_social', 'hackernews.html') ) }
+@if 'linkedin' in shares :
+  ${ h.readfile( os.path.join('_social', 'linkedin.html') ) }
+@if 'reddit' in shares :
+  ${ h.readfile( os.path.join('_social', 'reddit.html') ) }
+@if 'facebook' in shares or 'fb' in shares :
+  ${ h.readfile( os.path.join('_social', 'facebook.html') ) }

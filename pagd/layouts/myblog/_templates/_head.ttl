@@ -2,11 +2,9 @@
 <link text/css "media/pygments.css" rel="stylesheet">
 <title> ${title}
 
-@for g_webfont in google_webfonts :
-  <link text/css "${ g_webfont['src'] }" rel='stylesheet'>
+@for src in site.siteconfig['google_webfonts'] :
+  <link text/css "${src}" rel='stylesheet'>
 
 <style text/css>
-  body {
-    @if 'fontFamily' in style :
-        font-family: ${ style['fontFamily'] };
-  }
+  @@ s = '; '.join([ n+':'+v for n,v in site.siteconfig['style'].items() ])
+  body { ${s} }
