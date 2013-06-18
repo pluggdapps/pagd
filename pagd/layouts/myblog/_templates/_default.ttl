@@ -22,19 +22,20 @@
 @def article(fpath, htmltext) :
   <article>
     <div .title> ${title}
-    <div .metaa>
-      @if author :
-        <span .author> by ${author};
-      @if createdon or date :
-        <span .date> ${createdon or date}
+      <div .metaa>
+        @if 'author' in _context :
+          <span .author> by ${author};
+        @if 'createdon'  in _context  or  'date' in _context :
+          <span .date> ${createdon or date}
 
     <div .content> ${ htmltext }
 
     <div .metaz>
-      @if last_modified :
-        <span .last_modified> last modified : ${last_modified}
-      @if site.siteconfig['show_email'] and email :
-        <a .email href="mailto:${email}"> contact author
-      @if site.siteconfig['social_sharing'] :
-        <span #myblog_social>
-          share with ${ _social.body() }
+      @if 'last_modified' in _context :
+        <span .last_modified> last modified - ${last_modified};
+      @if site.siteconfig['show_email']  and  'email' in _context :
+        <a .email href="mailto:${email}"> contact-author;
+    @if site.siteconfig['social_sharing'] :
+      <div #myblog_social>
+        ${ _social.body() }
+    

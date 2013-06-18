@@ -1,5 +1,6 @@
 <link text/css "media/myblog.css" rel="stylesheet">
 <link text/css "media/pygments.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
 <title> ${title}
 
 @for src in site.siteconfig['google_webfonts'] :

@@ -1,4 +1,4 @@
 <div #footer>
-  <div #copyright> ${copyright}
+  <div #copyright> ${site.siteconfig['copyright']}
   <div #pagd> generated using <a "https://github.com/prataprc/pagd">pagd
 
