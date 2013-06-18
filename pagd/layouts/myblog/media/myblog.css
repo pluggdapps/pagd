@@ -135,6 +135,7 @@ div.metaa, div.metaz {              /* meta-data for article */
     font-weight : normal;
     font-size : small;
     color : gray;
+    padding : 2px 0px; 
 }
 div.metaa .author {                 /* article author */
     color: green;

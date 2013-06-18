@@ -34,7 +34,8 @@
       @if 'last_modified' in _context :
         <span .last_modified> last modified - ${last_modified};
       @if site.siteconfig['show_email']  and  'email' in _context :
-        <a .email href="mailto:${email}"> contact-author;
+        <a .email href="mailto:${email}"!> contact-author
+        ;
     @if site.siteconfig['social_sharing'] :
       <div #myblog_social>
         ${ _social.body() }
