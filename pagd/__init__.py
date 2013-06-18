@@ -19,9 +19,8 @@ def package( pa ) :
 import pagd.interfaces  # Interface specifications defined by this package.
 import pagd.commands    # Sub-commands for command line script.
 import pagd.contents    # Contain content translation plugins.
+import pagd.contexts    # Contain IXContext plugins for external context.
 import pagd.layouts     # Contain layout plugins
 import pagd.templates   # Contain template plugins
-
-try    : import pagd.sourcecode
-except : pass
+import pagd.rst         # Contain directives for reStructuredText
 

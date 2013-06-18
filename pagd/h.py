@@ -7,7 +7,7 @@
 """Helper functions for pagd's layout templates."""
 
 import sys
-from   os.path      import dirname, join
+from   os.path      import dirname, join, isfile
 
 __all__ = [ 'readfile' ]
 
@@ -16,7 +16,6 @@ __all__ = [ 'readfile' ]
 def readfile( relpath ):
     """Read file from path ``relpath`` relative to calling template."""
     frame = sys._getframe(1)
-    if frame.f_code.co_name in core_classes : return # Skip
     filen = frame.f_globals.get('_ttlfile', None)
     if isfile( filen ) :
         f = join( dirname(filen), relpath )
