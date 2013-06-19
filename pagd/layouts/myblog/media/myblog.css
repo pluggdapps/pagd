@@ -96,6 +96,13 @@ em {
     font-style : italic;
 }
 
+tt {
+    margin: 0px 2px;
+    padding: 0px 5px;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
 /* Sytling specific to blog articles */
 
 div#page {                              /* Entire page */
@@ -113,7 +120,7 @@ div#header nav {
     padding : 5px 0px;
     color : gray;
 }
-div#header a {
+div#header nav a {
     padding-right : 40px;
     text-decoration : none;
     color : gray;

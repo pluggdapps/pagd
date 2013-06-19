@@ -124,9 +124,6 @@ class MyBlog( Plugin ):
                 page.context.update( metadata )
                 page.context.update(
                     self._fetch_xc( metadata.get('_xcontext', ''), page ))
-                # last_modified 
-                if 'last_modified' not in page.context :
-                    page.context.update( last_modified=h.age(getmtime(fpath)) )
 
             # If skip_context is present then apply them,
             page = self._skip_context( page )
