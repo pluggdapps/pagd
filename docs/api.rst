@@ -12,4 +12,4 @@ API Listing
     modules/layouts.rst
     modules/contents.rst
     modules/templates.rst
-    modules/sourcecode.rst
+    modules/rst.rst

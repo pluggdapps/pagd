@@ -84,8 +84,10 @@ Features
 - sub-commands are plugins and can be extended by implementing
   pagd.interfaces.ICommand interface.
 - web-site templates can be designed using `tayra template`_.
+
   - experimental feature is available for mako and jinja2. If face problems
     with these templates, kindly let us know.
+
 - to use pagd as python library, refer to ``script.py`` module under pagd
   package.
 - integration with disqus commenting system. Comments will be stored in

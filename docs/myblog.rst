@@ -84,13 +84,37 @@ generate the static site form a source layout, which is described above.
 configuration settings
 ----------------------
   
-layout,
+  layout,
     layout type to be used, like e.g, ``pagd.myblog``.
-
-tayra.ttlcompiler.*
+  
+  tayra.ttlcompiler.*
     configuration parameters prefixed with ``tayra.ttlcompiler.`` will be
     passed on to Tayra template compiler.
-
+  
+  google_webfonts
+    list of, comma-separated, google's webfonts reference. Refer to 
+    google-webfonts_ on how to add web-fonts from google's site.
+  
+  style
+    property map of css style that will be applied on page's body element.
+  
+  show_email
+    boolean, if true will added email reference to page's author.
+  
+  social_sharing
+    list of, comma-separated, string of social-networks that can be used to
+    share a page. For eg., ``google+,twitter``, for each social site that are
+    mentioned, please provide a corresponding share link under
+    ``_templates/_social/`` directory.
+  
+  disqus
+    boolean, if true will add commenting system for the page using an external
+    commenting service like disqus. Make sure to populate
+    ``_templates/disqus.html`` file with a corresponding snippet.
+  
+  skip_context
+    list of, comma-separated, context attribute names that should be skipped
+    for all pages.
 
 context information
 -------------------
@@ -109,31 +133,36 @@ context information
     layout type to be used. Same as `layout` parameter from configuration
     settings.
 
-  last_modified
-    modified time of the page, formated as "%a %b %d, %Y". Picked from
-    file system's `mtime`.
+  author
+    name of page's author.
 
-  date
-    Page created time. Can be specified as part of page-metadata or page's
-    json context.
+  email
+    author's email-id.
+
+  last_modified
+    page's last modified time.
+
+  createdon / date
+    page creation time.
 
   _xcontext,
-    Fetch the context from external source, like from network or from persistant
-    data store.
+    comma separated string of plugin names (in canonical format) to fetch page
+    context from external source, like from repository, network or from
+    persistant data store.
 
   IContent,
-    Plugin name for translating :class:`Page` to html. Plugins supplied with
+    plugin name for translating :class:`Page` to html. Plugins supplied with
     the package - `pagd.native`, `pagd.pandoc` etc ... if left un-specified
     then default plugin will be used. Most probably the default plugin is
     `pagd.native`.
 
   filetype,
-    Interpret content-file as `filetype`. Note that if more than one contentfile
+    interpret content-file as `filetype`. Note that if more than one contentfile
     is present for the same page, this settings will be ignored. If left
     un-specified, file extension will be used to guess its file-type.
 
   articles,
-    List of tuple, (filepath, html-content), that can be used to populate the
+    list of tuple, (filepath, html-content), that can be used to populate the
     page-template during site-generation.
 
   template
@@ -141,6 +170,7 @@ context information
     content-page.
 
   templatetype,
-    Interpret the template file as given type. If left unspecified template type
+    interpret the template file as given type. If left unspecified template type
     will be guessed based on file extension.
 
+.. _google-webfonts: http://www.google.com/fonts
