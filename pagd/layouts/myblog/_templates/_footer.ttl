@@ -2,3 +2,22 @@
   <div #copyright> ${site.siteconfig['copyright']}
   <div #pagd> generated using <a "https://github.com/prataprc/pagd">pagd
 
+@@ arrowM = '<button title="%title%" type="button" ' \
+            'class="mfp-arrow mfp-arrow-%dir%"></button>'
+@@ tCounter = '<span class="mfp-counter">%curr% of %total%</span>' 
+<script text/javascript>
+  // Snippet to load rst gallery if available.
+  $(document).ready( function() {
+    $('.rst-gallery').each( function(idx, element) {
+        $(element).magnificPopup({
+          delegate: 'a',
+          type: 'image',
+          gallery: {
+            enabled: true, // set to true to enable gallery
+            preload: [0,1], // load next item
+            navigateByImgClick: true,
+          }
+        });
+    });
+  });
+

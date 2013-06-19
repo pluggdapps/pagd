@@ -99,8 +99,8 @@ em {
 /* Sytling specific to blog articles */
 
 div#page {                              /* Entire page */
-    border-left : 1px dashed gray;
-    border-right : 1px dashed gray;
+    border-left : 1px dashed black;
+    border-right : 1px dashed black;
     padding : 10px 20px;
 }
 
@@ -111,11 +111,12 @@ div#header {                            /* Header / navigation */
 div#header nav {
     border-bottom : 1px dashed gray;
     padding : 5px 0px;
-    color : gray
+    color : gray;
 }
 div#header a {
     padding-right : 40px;
     text-decoration : none;
+    color : gray;
 }
 
 div#container {                     /* container for blog article */
@@ -125,7 +126,7 @@ article {                           /* article */
     position: relative;
     padding-bottom: 32px;
 }
-div.title {                         /* article title */
+div.article-title {                         /* article title */
     margin : 40px 0px 20px 0px;
     font-weight : bold;
     font-size : larger;
@@ -197,3 +198,25 @@ div.highlight {
     padding : 5px;
 }
 
+/* Styling for rst youtube directive */
+object.rst-youtube {
+    width: 600px;
+    height: 365px;
+    margin: 20px 10%;
+}
+
+/* Styling for rst youtube directive */
+div.rst-gallery {
+}
+div.rst-gallery .gallery-title {
+    font-weight: bold;
+    color : gray;
+    font-size : smaller;
+}
+div.rst-gallery a {
+}
+div.rst-gallery img {
+    width : 75px;
+    height : 75px;
+    margin: 2px;
+}

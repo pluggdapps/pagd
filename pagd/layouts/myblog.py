@@ -304,7 +304,7 @@ class MyBlog( Plugin ):
     def _skip_context(self, page):
         attrs = h.parsecsv( page.site.siteconfig.get( 'skip_context', '' )) + \
                 h.parsecsv( page.context.get( 'skip_context', '' ))
-        [ page.context.pop(attr, None) for attr in attrs ]
+        [ page.context.update(attr=None) for attr in attrs ]
         return page
 
     def _fetch_xc(self, _xc, page) :
