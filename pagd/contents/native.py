@@ -30,9 +30,9 @@ class Native( Plugin ):
         self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
         setts = h.settingsfor('tayra.ttlcompiler.', self.siteconfig)
         setts.update( debug=True )
-        self.ttlplugin = self.qp(
-                            pluggdapps.interfaces.ITemplate, 'tayra.TTLCompiler',
-                            settings=setts )
+        self.ttlplugin = \
+            self.qp( pluggdapps.interfaces.ITemplate, 'tayra.TTLCompiler',
+                     settings=setts )
 
     #---- IContent interface methods.
 
