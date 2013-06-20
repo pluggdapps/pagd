@@ -7,16 +7,16 @@
 <html>
   <head> ${ _head.body() }
   <body>
-    <div #page>
-      <div #header> ${ _header.body() }
-      <div #container>
+    <div #myblog-page>
+      <div #myblog-header> ${ _header.body() }
+      <div #myblog-container>
         @@ fpath, metadata, htmltext = page.articles[0]
         ${ article(fpath, htmltext) }
       @if site.siteconfig['disqus'] :
-        <div #myblog_disqus>
+        <div #myblog-disqus>
           ${ h.readfile( os.path.join('_social', 'disqus.html') ) }
     <hr>
-    <div #footer> ${ _footer.body() }
+    <div #myblog-footer> ${ _footer.body() }
 
 
 @def article(fpath, htmltext) :
@@ -37,6 +37,6 @@
         <a .email href="mailto:${email}"!> contact-author
         ;
     @if site.siteconfig['social_sharing'] :
-      <div #myblog_social>
+      <div #myblog-social>
         ${ _social.body() }
     

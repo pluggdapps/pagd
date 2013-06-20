@@ -105,28 +105,28 @@ tt {
 
 /* Sytling specific to blog articles */
 
-div#page {                              /* Entire page */
+div#myblog-page {                              /* Entire page */
     border-left : 1px dashed black;
     border-right : 1px dashed black;
     padding : 10px 20px;
 }
 
-div#header {                            /* Header / navigation */
+div#myblog-header {                            /* Header / navigation */
     font-weight : bold;
     font-size : larger;
 }
-div#header nav {
+div#myblog-header nav {
     border-bottom : 1px dashed gray;
     padding : 5px 0px;
     color : gray;
 }
-div#header nav a {
+div#myblog-header nav a {
     padding-right : 40px;
     text-decoration : none;
     color : gray;
 }
 
-div#container {                     /* container for blog article */
+div#myblog-container {                     /* container for blog article */
     margin-top : 40px;
 }
 article {                           /* article */
@@ -159,40 +159,42 @@ div.metaz .email {                  /* author email-id */
 }
 
 /* Social sharing with twitter, hackernews, facebook, etc ...*/
-#myblog_social {
+#myblog-social {
     height: 32px;
     position: absolute;
     bottom: 0;
     left: 0;
 }
-#myblog_social ul {
+#myblog-social ul {
     float: left;
     margin: 0px;
     padding: 0px;
 }
-#myblog_social ul li {
+#myblog-social ul li {
     float: left;
     position: relative;
     list-style: none;
     display: inline;
 }
-#myblog_social ul li.twitter {}
-#myblog_social ul li.fb { margin-right: 20px; }
-#myblog_social ul li.hn { margin-right: 10px; }
-#myblog_social ul li.linkedin { margin-right: 20px; }
-#myblog_social ul li.gplus {}
+#myblog-social ul li.twitter {}
+#myblog-social ul li.fb { margin-right: 20px; }
+#myblog-social ul li.hn { margin-right: 10px; }
+#myblog-social ul li.linkedin { margin-right: 20px; }
+#myblog-social ul li.gplus {}
 
 /* Commenting and social sharing with disqus plugin */
-div.metaz #myblog_disqus {
+div.metaz #myblog-disqus {
 }
 
 /* Page footer, contains references, copyright notice etc ...*/
-div#footer {
+div#myblog-footer {
     font-size : smaller;
     color : gray;
     margin-bottom : 50px;
 }
-div#copyright {
+div#myblog-pagd {
+}
+div#myblog-copyright {
     text-align : right;
     float: right;
 }

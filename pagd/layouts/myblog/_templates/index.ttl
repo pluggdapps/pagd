@@ -6,9 +6,9 @@
 <html>
   <head> ${ _head.body() }
   <body>
-    <div #page>
-      <div #header> ${ _header.body() }
-      <div #container> ${ page.articles[0][2] if page.articles else '' }
+    <div #myblog-page>
+      <div #myblog-header> ${ _header.body() }
+      <div #myblog-container> ${ page.articles[0][2] if page.articles else '' }
     <hr>
-    <div #footer> ${ _footer.body() }
+    <div #myblog-footer> ${ _footer.body() }
 
