@@ -7,16 +7,16 @@
 """A collection of library routines."""
 
 from   os.path  import split, join, isfile, splitext, abspath
-import os, json
+import os, json, time
 
-from   pluggdapps.utils import json_encode, json_decode
+from   pluggdapps.utils as h
 
 def json2dict( jsonfile ):
     """Convert ``jsonfile`` to python dictionary. Return ``None`` if jsonfile
     is not found."""
     if isfile( jsonfile ) :
         txt = open(jsonfile).read()
-        d = json_decode(txt) if txt else {}
+        d = h.json_decode(txt) if txt else {}
     else :
         return {}
     if not isinstance( d, dict ) :
@@ -79,6 +79,35 @@ def findtemplate( subdir, pagename=None, default=None ):
     else :
         tmplfile = None
     return tmplfile
+
+
+agescales = [("year", 3600 * 24 * 365),
+             ("month", 3600 * 24 * 30),
+             ("week", 3600 * 24 * 7),
+             ("day", 3600 * 24),
+             ("hour", 3600),
+             ("minute", 60),
+             ("second", 1)]
+def age(then, format="%a %b %d, %Y", scale="year"):
+    """convert (timestamp, tzoff) tuple into an age string. both `timestamp` and
+    `tzoff` are expected to be integers."""
+
+    plural = lambda t, c : t if c == 1 else (t + "s")
+    fmt = lambda t, c : "%d %s" % (c, plural(t, c))
+
+    now = time.time()
+    if then > now :
+        return 'in the future'
+
+    threshold = h.dropwhile( lambda x : x[0] != scale, agescales )[0][1]
+    delta = max(1, int(now - then))
+    if delta > threshold :
+        return time.strftime(format, time.gmtime(then))
+
+    for t, s in agescales:
+        n = delta // s
+        if n >= 2 or s == 1:
+            return '%s ago' % fmt(t, n)
 
 class Site(object):
     """Abstraction object to hold following attributes.

@@ -5,10 +5,10 @@
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
 from   pluggdapps.plugin        import Plugin, implements
-import pluggdapps.utils         as h
 import pluggdapps.interfaces
 
 import pagd.interfaces
+from   pagd.lib                 import age
 
 class Hg( Plugin ):
     """Plugin to fetch page's context from Hg, if available, and compose them
@@ -45,8 +45,8 @@ class Hg( Plugin ):
 
         author, email = author.strip(' "\''), email.strip(' "\''),
         createdon, last_modified = createdon.strip(), last_modified.strip()
-        createdon = h.age( int(createdon) ) if createdon else ''
-        last_modified = h.age( int(last_modified), scale="day" ) \
+        createdon = age( int(createdon) ) if createdon else ''
+        last_modified = age( int(last_modified), scale="day" ) \
                                     if last_modified else ''
         return { 'author' : author, 'email' : email,
                  'createdon' : createdon, 'last_modified' : last_modified

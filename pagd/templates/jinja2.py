@@ -5,7 +5,6 @@
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
 from   pluggdapps.plugin        import Plugin, implements
-import pluggdapps.utils         as h
 import pluggdapps.interfaces
 
 import pagd.interfaces

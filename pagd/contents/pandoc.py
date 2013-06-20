@@ -8,7 +8,6 @@ from   os.path      import splitext, isfile, join
 import os, tempfile
 
 from   pluggdapps.plugin    import Plugin, implements
-import pluggdapps.utils     as h
 from   pagd.interfaces      import IContent
 
 

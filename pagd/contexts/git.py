@@ -8,10 +8,10 @@ from   os.path      import join
 import subprocess
 
 from   pluggdapps.plugin        import Plugin, implements
-import pluggdapps.utils         as h
 import pluggdapps.interfaces
 
 import pagd.interfaces
+from   pagd.lib                 import age
 
 class Git( Plugin ):
     """Plugin to fetch page's context from git, if available, and compose them
@@ -47,8 +47,8 @@ class Git( Plugin ):
 
         author, email = author.strip(' "\''), email.strip(' "\''),
         createdon, last_modified = createdon.strip(), last_modified.strip()
-        createdon = h.age( int(createdon) ) if createdon else ''
-        last_modified = h.age( int(last_modified), scale="day" ) \
+        createdon = age( int(createdon) ) if createdon else ''
+        last_modified = age( int(last_modified), scale="day" ) \
                                     if last_modified else ''
         return { 'author' : author, 'email' : email,
                  'createdon' : createdon, 'last_modified' : last_modified

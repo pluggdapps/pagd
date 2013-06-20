@@ -7,7 +7,6 @@
 import io
 
 from   pluggdapps.plugin        import Plugin, implements
-import pluggdapps.utils         as h
 import pluggdapps.interfaces
 
 import pagd.interfaces
