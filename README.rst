@@ -71,7 +71,7 @@ Features
   - It is possible to create any number of layout either as part of `pagd`
     tool or as separate package.
   - although layouts are encouraged to follow the Model-View-Controller
-    concept explained above, it is upto the layout-plugin to define a structure
+    concept explained above, it is up to the layout-plugin to define a structure
     and meaning of layout's source directory-tree.
 
 - everything that needs to get done by pagd is done through ``pagd`` command
@@ -111,15 +111,15 @@ Features
     `google_webfonts`.
   - integration with disqus commenting system. Comments will be stored in
     disqus' server.
-  - integration with git, mercurial repository to gather file's metadata like
-    page's author, email, created-time, last-modified-time etc ..., this is
+  - integration with git, mercurial repository to gather file's meta-data like
+    page's author, email, created-time, last-modified-time etc..., this is
     entirely optional.
   - social sharing with twitter, facebook, hackernews, google+, reddit,
-    linkedin etc ...
-  - incluse jquery, template can be customized with jquery plugins.
+    linkedin etc...
+  - includes jquery, template can be customized with jquery plugins.
   - learn more - pagd.myblog_.
 
-- only part that cannot be configured, constumized or entirely replaced, is
+- only part that cannot be configured, customized or entirely replaced, is
   the name of the tool ;)
 
 - **License:** `GPLv3 license`_
@@ -144,7 +144,7 @@ Related links
 * mailing-list_ - if you have any problem just ask !!
 
 pagd is under development - you can hack the code, contribute back with
-`github <https://github.com/prataprc/pagd>`_. Note that the orginal
+`github <https://github.com/prataprc/pagd>`_. Note that the original
 repository is maintained with mercurial and uses hg-git plugin to publish it
 on github.
 

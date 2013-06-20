@@ -39,6 +39,40 @@ create following directory tree,
        +- _header.ttl
        +- _head.ttl
        +- index.ttl
+       +- _social.ttl
+       +- _social/
+          +- disqus.html
+
+
+- ``config.json`` contains a dictionary of settings that will direct pagd
+  command like script. Individual settings parameter are explained further
+  down.
+
+- ``_context.json`` context information that are applicable to all pages and
+  pages under all sub-directories.
+
+- ``myblog.css`` style customization can be done through this file.
+
+- ``_default.ttl`` template will be used for all other pages, if a matching
+  template is not found for a page under _contents/ sub-directory.
+
+- ``_footer.ttl`` constitute the footer portion of site pages. You can add
+  acknowledgments, copyright notice under this template.
+
+- ``_header.ttl`` constitute the header portion of site pages. You can add your
+  site-wide navigation links inside this template file.
+
+- ``_head.ttl`` will go under <head> element of the page. Both index.ttl and
+  _default.ttl templates include them.
+
+- ``index.ttl`` directly maps to ``_contents/index.<format>`` file. This
+  template is used only for the index-page.
+
+- ``_social.ttl`` adds social sharing features for your site. Uses
+  `social_sharing` configuration parameter from `config.json`.
+
+- ``_social/`` add all html snippets that you obtain from disqus, twitter,
+  facebook etc...  under this directory.
 
 Following is the general idea on how `pagd.myblog` layout works,
 
@@ -81,6 +115,19 @@ generate the static site form a source layout, which is described above.
   template and content authors must take this into account, especially when
   referring to files under media/ path.
   
+external context
+----------------
+
+_context.json files providing context information for all pages under the
+sub-directory or <pagename.json> files providing context attributes
+to specific pages can refer to external source of context through `_xcontext`
+attributes. Value of this attribute is a comma separated list of plugin names,
+in canonical format like `pagd.git`, that refer to IXContext plugins. While
+generating the site such references will be fetched and page's context
+dictionary will be updated.
+
+Repository integration is accomplished using this feature.
+
 configuration settings
 ----------------------
   
@@ -89,7 +136,7 @@ configuration settings
   
   tayra.ttlcompiler.*
     configuration parameters prefixed with ``tayra.ttlcompiler.`` will be
-    passed on to Tayra template compiler.
+    passed on to tayra_ template compiler.
   
   google_webfonts
     list of, comma-separated, google's webfonts reference. Refer to 
@@ -103,9 +150,9 @@ configuration settings
   
   social_sharing
     list of, comma-separated, string of social-networks that can be used to
-    share a page. For eg., ``google+,twitter``, for each social site that are
-    mentioned, please provide a corresponding share link under
-    ``_templates/_social/`` directory.
+    share a page. For eg., ``google+,twitter``, for each social network that are
+    mentioned you must add a corresponding `twitter.html`, `google+.html`
+    under ``_templates/_social/`` directory.
   
   disqus
     boolean, if true will add commenting system for the page using an external
@@ -115,6 +162,9 @@ configuration settings
   skip_context
     list of, comma-separated, context attribute names that should be skipped
     for all pages.
+
+  copyright,
+    copyright string that will be displayed in page footer.
 
 context information
 -------------------
@@ -173,7 +223,5 @@ context information
     interpret the template file as given type. If left unspecified template type
     will be guessed based on file extension.
 
-external context
-----------------
-
 .. _google-webfonts: http://www.google.com/fonts
+.. _tayra: http://pythonhosted.org/tayra
