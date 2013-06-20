@@ -87,8 +87,8 @@ Features
   package.
 - web-site templates can be designed using `tayra template`_.
 
-  - experimental feature is available for mako and jinja2. If face problems
-    with these templates, kindly let us know.
+  - experimental feature is available for mako and jinja2. If you face problems
+    with these templates, kindly let me know.
 
 - reStructuredText directives,
   

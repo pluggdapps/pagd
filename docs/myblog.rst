@@ -173,4 +173,7 @@ context information
     interpret the template file as given type. If left unspecified template type
     will be guessed based on file extension.
 
+external context
+----------------
+
 .. _google-webfonts: http://www.google.com/fonts
