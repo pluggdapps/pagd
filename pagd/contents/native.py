@@ -72,8 +72,8 @@ class Native( Plugin ):
 
     def ttl2html(self, fpath, page):
         """``fpath`` is identified as a file containing tayra template text. If
-        generated html contains <meta> tag elements, it will be used as source of
-        meta-data information.
+        generated html contains <meta> tag elements, it will be used as source
+        of meta-data information.
 
         And return a tuple of (metadata, content). Content is HTML text."""
         from pagd.contents  import html2metadata

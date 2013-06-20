@@ -45,8 +45,9 @@ class Hg( Plugin ):
 
         author, email = author.strip(' "\''), email.strip(' "\''),
         createdon, last_modified = createdon.strip(), last_modified.strip()
-        return { 'author' : author,
-                 'email' : email,
-                 'createdon' : createdon and h.age( int(createdon) ),
-                 'last_modified' : last_modified and h.age( int(last_modified) )
+        createdon = h.age( int(createdon) ) if createdon else ''
+        last_modified = h.age( int(last_modified), scale="day" ) \
+                                    if last_modified else ''
+        return { 'author' : author, 'email' : email,
+                 'createdon' : createdon, 'last_modified' : last_modified
                }
