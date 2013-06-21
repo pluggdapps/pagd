@@ -14,24 +14,21 @@ import pagd.interfaces
 try    :
     from   mako.template import Template
     from   mako.runtime import Context
-except : pass
+    class Mako( Plugin ):
+        """Plugin to translate mako templates to html files."""
+        implements( pagd.interfaces.ITemplate )
 
-class Mako( Plugin ):
-    """Plugin to translate mako templates to html files."""
-    implements( pagd.interfaces.ITemplate )
+        def __init__( self ):
+            self.kwargs = {
+                'module_directory' : \
+                        self['siteconfig'].get('mako.module_directory', None),
+            }
 
-    def __init__( self ):
-        self.kwargs = {
-            'module_directory' : \
-                    self['siteconfig'].get('mako.module_directory', None),
-        }
-
-    def render( self, page ):
-        mytemplate = Template( page.templatefile, **self.kwargs )
-        buf = io.StringIO()
-        mytemplate.render_context( Context(buf, **page.context) )
-        return buf.getvalue()
-
-
-
+        def render( self, page ):
+            mytemplate = Template( page.templatefile, **self.kwargs )
+            buf = io.StringIO()
+            mytemplate.render_context( Context(buf, **page.context) )
+            return buf.getvalue()
+except :
+    pass
 

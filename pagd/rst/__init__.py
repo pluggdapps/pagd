@@ -7,8 +7,11 @@
 """This package contain a collection of directives for reStrucutred text.
 """
 
-import pagd.rst.sourcecode
-import pagd.rst.youtube
-import pagd.rst.gallery
+try :
+    import pagd.rst.sourcecode
+    import pagd.rst.youtube
+    import pagd.rst.gallery
+except:
+    pass
 
 

@@ -39,7 +39,8 @@ class Git( Plugin ):
         """
         for fpath in page.contentfiles :
             try :
-                logs = subprocess.check_output(self.cmd+[fpath]).splitlines()
+                logs = subprocess.check_output(self.cmd+[fpath], stderr=STDOUT)
+                logs = logs.splitlines()
                 _, _, last_modified = logs[0].decode('utf-8').split(" ; ")
                 author, email, createdon = logs[-1].decode('utf-8').split(" ; ")
             except :

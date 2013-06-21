@@ -9,7 +9,7 @@
 from   os.path  import split, join, isfile, splitext, abspath
 import os, json, time
 
-from   pluggdapps.utils as h
+import pluggdapps.utils as h
 
 def json2dict( jsonfile ):
     """Convert ``jsonfile`` to python dictionary. Return ``None`` if jsonfile

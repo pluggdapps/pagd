@@ -130,6 +130,8 @@ Features
   - To interpret raw-html, python-lxml_ needs to be installed.
   - If you need source code highlighting in your rst text, pygments_ and
     docutils_ needs to be installed.
+  - To template with jinja2 or mako corresponding packages need to be
+    installed.
 
 - **Status:** Core design stable. Not expected to change.
 

@@ -55,8 +55,7 @@ setup(
         ],
     },
     install_requires=[                      # setuptools
-        'pluggdapps>=0.41dev',
-        'tayra>=0.42dev',
+        'tayra>=0.43dev',
     ],
     extras_require={},                      # setuptools
     setup_requires={},                      # setuptools
@@ -71,7 +70,7 @@ setup(
     author_email='prataprc@gmail.com',
     maintainer='Pratap Chakravarthy',
     maintainer_email='prataprc@gmail.com',
-    url='',
+    url='http://pythonhosted.org/pagd/',
     download_url='',
     license='General Public License',
     description=description,
