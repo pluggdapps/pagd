@@ -1,13 +1,8 @@
 A roadmap of things to do
 =========================
 
-* Document git, hg IXContext plugins and its configurability with page
-  context.
-
 * A per-page/default context option to skip metadata from page, even if it is
   available.
-
-* rst directive for you-tube and image gallery.
 
 * if more that one article-content is detected for the same page-url, how to
   generate the HTML ? as list of individual articles ? or as tabbed version of
