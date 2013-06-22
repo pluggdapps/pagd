@@ -1,21 +1,12 @@
 A roadmap of things to do
 =========================
 
-* Title line should include age of the document,
-  ``by prataprc - last modified: Sun Jun 02, 2013 - 2years 1month old``
-
-* Facebook integration. There are aweful lot of ways to integrate a page with
-  facebook. Do we really need them all ?
-
-* rst directive for you-tube and image gallery.
-
-* Support asciidoc content parsing.
+* A per-page/default context option to skip metadata from page, even if it is
+  available.
 
 * if more that one article-content is detected for the same page-url, how to
   generate the HTML ? as list of individual articles ? or as tabbed version of
   articles ?
-
-* Added social sharing for `myblog` layout.
 
 * `regen` option in generate sub-command is yet to be implemented.
 
@@ -23,6 +14,12 @@ A roadmap of things to do
 
 * Merge support when using `create -f`. A 3-way merge is there, find a clean
   solution for this.
+
+* for `pagd.myblog` layout,
+
+  * Support asciidoc content parsing.
+  * Facebook integration. There are aweful lot of ways to integrate a page with
+    facebook. Do we really need them all ?
 
 
 Release check-list 
@@ -36,6 +33,10 @@ Release check-list
 
 - Update TODO.rst if any, because both CHANGELOG.rst and TODO.rst are referred
   by README.rst.
+
+- copy ~/oss/magnific-popup-git/dist/
+  {magnific-popup.css,jquery.magnific-popup.min.js
+  files to pagd/layouts/myblog/media/magnific-popup/ directory.
 
 - Check whether release changelogs in CHANGELOG.rst have their release-timeline
   logged, atleast uptill the previous release.

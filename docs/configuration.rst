@@ -18,13 +18,18 @@ pagd.gen
 
 -- configuration is not supported by plugin --
 
-pagd.jinja2
------------
+pagd.git
+--------
 
 -- configuration is not supported by plugin --
 
-pagd.mako
----------
+pagd.hg
+-------
+
+-- configuration is not supported by plugin --
+
+pagd.jinja2
+-----------
 
 -- configuration is not supported by plugin --
 
