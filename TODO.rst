@@ -1,6 +1,17 @@
 A roadmap of things to do
 =========================
 
+* Merge siteconfig with page-context. At the end of it, even configuration
+  information is part of context and this gives a unified picture to template
+  developers, while for the users they get to enjoy the notion of
+  site-configuration and context-manipuation.
+
+* age()-scale is calculated statically, so it does not make sense if the site
+  is goint to be generated once in a while. On the other hand if the site is
+  going to be generated periodically, then corresponding scale-factor can be
+  choosen by user. So make ''git.*'' plugin configuration available for
+  IXContext plugins ?
+
 * A per-page/default context option to skip metadata from page, even if it is
   available.
 

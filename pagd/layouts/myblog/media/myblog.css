@@ -229,3 +229,8 @@ div.rst-gallery img {
     height : 75px;
     margin: 2px;
 }
+
+/* Styling for rst gist directive */
+div.gist {
+    font-size: smaller;
+}

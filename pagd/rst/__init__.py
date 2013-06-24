@@ -11,7 +11,9 @@ try :
     import pagd.rst.sourcecode
     import pagd.rst.youtube
     import pagd.rst.gallery
+    import pagd.rst.gist
 except:
+    raise
     pass
 
 
