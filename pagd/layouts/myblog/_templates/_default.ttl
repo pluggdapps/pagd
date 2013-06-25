@@ -22,6 +22,8 @@
 @def article(fpath, htmltext) :
   <article>
     <div .article-title> ${title}
+      @if summary :
+        <div .article-summary> ${summary}
       <div .metaa>
         @if author :
           <span .author> by ${author};

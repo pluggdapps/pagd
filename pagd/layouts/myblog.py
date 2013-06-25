@@ -13,8 +13,7 @@ import os, time
 from   pluggdapps.plugin    import Plugin, implements
 import pluggdapps.utils     as h
 from   pagd.interfaces      import ILayout, IContent, ITemplate, IXContext
-from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page, \
-                                   pagd_plugins
+from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page
 
 class MyBlog( Plugin ):
     """A layout plugin to generate personal blog sites. Support create, gen,
@@ -30,7 +29,7 @@ class MyBlog( Plugin ):
             self.siteconfig = self['siteconfig']
         else :
             self.siteconfig = json2dict( join( self['siteconfig'] ))
-        self.plugins = pagd_plugins( self.sitepath, self.siteconfig )
+        self.plugins = self._plugins( self.sitepath, self.siteconfig )
 
     #---- ILayout interface methods
 
@@ -99,10 +98,9 @@ class MyBlog( Plugin ):
                 _, ext = splitext(page.templatefile)
                 ttype = page.context.get('templatetype', ext.lstrip('.'))
                 # generate page's html
-                html = tmpl2plugin( self.plugins, ttype ).render( page )
+                html = self._tmpl2plugin( self.plugins, ttype ).render( page )
                 os.makedirs(path, exist_ok=True) if not isdir(path) else None
                 open( abspath( join( path, fname )), 'w' ).write(html)
-                
 
 
     SPECIALPAGES = ['_context.json']
@@ -131,12 +129,13 @@ class MyBlog( Plugin ):
                 page.contentfiles = contentfiles
                 page.context = self.config2context( self.siteconfig )
                 page.context.update({
-                    'site'  : page.site,
-                    'page'  : page,
-                    'title' : page.pagename,
-                    'layout' : self.caname,
-                    'author' : None,
-                    'email'  : None,
+                    'site'    : page.site,
+                    'page'    : page,
+                    'title'   : page.pagename,
+                    'summary' : '',
+                    'layout'  : self.caname,
+                    'author'  : None,
+                    'email'   : None,
                     'createdon'     : None,
                     'last_modified' : None,
                     'date'  : None,
@@ -267,9 +266,29 @@ class MyBlog( Plugin ):
     def config2context( self, siteconfig ):
         xd = { x : siteconfig[x] 
                for x in [ 'disqus', 'show_email', 'social_sharing', 'copyright',
-                          'google_webfonts', 'style' ]
+                          'google_webfonts', 'style', 'age_scale', ]
              }
         return xd
+
+    def _plugins( self, sitepath, siteconfig ):
+        """Instantiate plugins available for :class:`ITemplate`,
+        :class:`IXContext` and :class:`IContent` interfaces.
+        
+        siteconfig and sitepath will be passed as plugin-settings for all
+        instantiated plugins. 
+        """
+        sett = { 'sitepath'   : sitepath, 'siteconfig' : siteconfig }
+        plugins = self.qps( ITemplate, settings=sett ) + \
+                  self.qps( IXContext, settings=sett ) + \
+                  self.qps( IContent, settings=sett )
+        return { p.caname : p for p in plugins }
+
+    def _tmpl2plugin( self, plugins, tmpl ):
+        """For file type ``tmpl`` return the template plugin."""
+        for p in plugins.values() :
+            if tmpl in getattr(p, 'extensions', []) : return p
+        else :
+            return None
 
     def _skip_context(self, page):
         attrs = h.parsecsv( page.site.siteconfig.get( 'skip_context', '' )) + \

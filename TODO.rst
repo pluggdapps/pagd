@@ -1,11 +1,6 @@
 A roadmap of things to do
 =========================
 
-* Merge siteconfig with page-context. At the end of it, even configuration
-  information is part of context and this gives a unified picture to template
-  developers, while for the users they get to enjoy the notion of
-  site-configuration and context-manipuation.
-
 * Support ``abstract`` metadata for articles. It must be rendered below the
   title.
 

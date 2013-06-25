@@ -4,6 +4,9 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
+from   sys          import stdout
+import subprocess
+
 from   pluggdapps.plugin        import Plugin, implements
 import pluggdapps.interfaces
 
@@ -35,9 +38,10 @@ class Hg( Plugin ):
         - `date-string` will be of the format 'Mon Jun 10, 2013' and will
           refer to author's local-time.
         """
+        scale = page.context.get( 'age_scale' )
         for fpath in page.contentfiles :
             try :
-                logs = subprocess.check_output(self.cmd+[fpath], stderr=STDOUT)
+                logs = subprocess.check_output(self.cmd+[fpath], stderr=stdout)
                 logs = logs.splitlines()
                 _, _, last_modified = logs[0].decode('utf-8').split(" ; ")
                 author, email, createdon = logs[-1].decode('utf-8').split(" ; ")
@@ -46,8 +50,8 @@ class Hg( Plugin ):
 
         author, email = author.strip(' "\''), email.strip(' "\''),
         createdon, last_modified = createdon.strip(), last_modified.strip()
-        createdon = age( int(createdon) ) if createdon else ''
-        last_modified = age( int(last_modified), scale="day" ) \
+        createdon = age( int(createdon), scale=scale ) if createdon else ''
+        last_modified = age( int(last_modified), scale=scale ) \
                                     if last_modified else ''
         return { 'author' : author, 'email' : email,
                  'createdon' : createdon, 'last_modified' : last_modified

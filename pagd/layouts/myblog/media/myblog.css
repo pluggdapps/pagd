@@ -138,6 +138,14 @@ div.article-title {                         /* article title */
     font-weight : bold;
     font-size : larger;
 }
+div.article-summary {                       /* article summary */
+    font-weight : normal;
+    font-style : italic;
+    font-size : small;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1em;
+    color : gray;
+}
 div.metaa, div.metaz {              /* meta-data for article */
     font-family: "Courier New", Courier, monospace;
     font-weight : normal;

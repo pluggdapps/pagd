@@ -52,6 +52,8 @@ class Gen( Singleton ):
         """
         siteconfig = abspath(args.configfile) if args.configfile \
                                 else join( args.sitepath, args.configfile )
+        siteconfig = json2dict( siteconfig )
+        layoutname = siteconfig.get( 'layout', args.layout )
         sett = { 'sitepath'   : args.sitepath,
                  'siteconfig' : siteconfig
                }

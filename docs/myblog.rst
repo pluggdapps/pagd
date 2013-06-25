@@ -137,7 +137,17 @@ configuration settings
   tayra.ttlcompiler.*
     configuration parameters prefixed with ``tayra.ttlcompiler.`` will be
     passed on to tayra_ template compiler.
-  
+
+  age_scale
+    configuration parameters for repository plugins like ``pagd.git``,
+    ``pagd.hg`` should have one of the following - "year", "month", "week",
+    "day", "hour", "second". While generating the pages, git plugin will
+    gather createdon and last_modified dates from repository, and use this
+    configuration to convert date to age format relative to current date/time.
+
+    set this value if you are going to periodically and frequently generate
+    the pages.
+
   google_webfonts
     list of, comma-separated, google's webfonts reference. Refer to 
     google-webfonts_ on how to add web-fonts from google's site.
@@ -166,9 +176,14 @@ configuration settings
   copyright,
     copyright string that will be displayed in page footer.
 
+
 configuration settings like ``disqus``, ``show_email``, ``social_sharing``,
 ``copyright``, ``google_webfonts``, ``style`` are automatically made available
-in page-context.
+in page-context. At the end of it, even configuration information is part of
+context and this gives a unified picture to template developers, while users
+still have a notion of configuring the site (using config.json) and
+customizing pages (using _context.json).
+
 
 context information
 -------------------
@@ -181,7 +196,11 @@ context information
     :class:`Page` instance.
 
   title
-    Page title. Will be added under html <title> tag.
+    Page title - will be highlighted as document title, and also added under
+    html <title> tag.
+
+  summary
+    Page summary - will come under page's title.
 
   layout
     layout type to be used. Same as `layout` parameter from configuration

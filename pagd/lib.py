@@ -24,28 +24,6 @@ def json2dict( jsonfile ):
     return d
 
 
-def pagd_plugins( sitepath, siteconfig ):
-    """Instantiate plugins available for :class:`ITemplate`,
-    :class:`IXContext` and :class:`IContent` interfaces.
-    
-    siteconfig and sitepath will be passed as plugin-settings for all
-    instantiated plugins. 
-    """
-    sett = { 'sitepath'   : sitepath 'siteconfig' : siteconfig }
-    plugins = self.qps( ITemplate, settings=sett ) + \
-              self.qps( IXContext, settings=sett ) + \
-              self.qps( IContent, settings=sett )
-    return { p.caname : p for p in plugins }
-
-
-def tmpl2plugin( plugins, tmpl ):
-    """For file type ``tmpl`` return the template plugin."""
-    for p in plugins :
-        if tmpl in getattr(p, 'extensions', []) : return p
-    else :
-        return None
-
-
 def pagd(path, files) :
     """This function implements the key concept in pagd, that is, to aggregate
     content and for target web-page.
@@ -110,7 +88,7 @@ agescales = [("year", 3600 * 24 * 365),
              ("hour", 3600),
              ("minute", 60),
              ("second", 1)]
-def age(then, format="%a %b %d, %Y", scale="year"):
+def age( then, format="%a %b %d, %Y", scale="year" ):
     """convert (timestamp, tzoff) tuple into an age string. both `timestamp` and
     `tzoff` are expected to be integers."""
 
