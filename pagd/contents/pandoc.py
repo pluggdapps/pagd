@@ -22,7 +22,6 @@ class Pandoc( Plugin ):
     implements( IContent )
 
     def __init__(self) :
-        self.siteconfig = self['siteconfig'] if 'siteconfig' in self else {}
         self.cmd = join( os.environ['HOME'], '.cabal', 'bin', 'pandoc' )
 
     #---- IContent interface methods.

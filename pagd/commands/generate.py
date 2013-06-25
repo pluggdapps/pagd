@@ -50,19 +50,14 @@ class Gen( Singleton ):
         instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
         passed as settings dictionary.
         """
-        configfile = join( args.sitepath, args.configfile )
-        if isfile(configfile) :
-            siteconfig = json2dict( join( args.sitepath, configfile ))
-            layoutname = siteconfig['layout']
-        else :
-            layoutname = args.layout
-        sett = { 'sitepath' : args.sitepath,
+        siteconfig = abspath(args.configfile) if args.configfile \
+                                else join( args.sitepath, args.configfile )
+        sett = { 'sitepath'   : args.sitepath,
                  'siteconfig' : siteconfig
                }
         layout = self.qp( ILayout, layoutname, settings=sett )
-        buildtarget = abspath( join( args.sitepath, args.buildtarget ))
         self.pa.loginfo(
             "Generating site at [%s] with layout [%s] ..." %
             (args.sitepath, layoutname))
-        layout.generate(buildtarget, regen=args.regen)
+        layout.generate( abspath(args.buildtarget), regen=args.regen )
         self.pa.loginfo("... complete")

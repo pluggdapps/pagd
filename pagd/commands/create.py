@@ -4,12 +4,11 @@
 # file 'LICENSE', which is part of this source code package.
 #       Copyright (c) 2013 R Pratap Chakravarthy
 
-from   os.path                  import join, isfile
+from   os.path                  import join, isfile, abspath
 
 from   pluggdapps.plugin        import Singleton, implements
 from   pluggdapps.interfaces    import ICommand
 
-from   pagd.lib                 import json2dict
 from   pagd.interfaces          import ILayout
 
 class Create( Singleton ):
@@ -39,7 +38,7 @@ class Create( Singleton ):
         self.subparser.set_defaults( handler=self.handle )
         self.subparser.add_argument(
                 '-g', '--config-path',
-                dest='configfile', default='config.json',
+                dest='configfile', default=None,
                 help='The configuration used to generate the site')
         self.subparser.add_argument(
                 '-f', '--force', dest='overwrite',
@@ -54,16 +53,10 @@ class Create( Singleton ):
         instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
         passed as settings dictionary.
         """
-        configfile = join( args.sitepath, args.configfile )
-        if isfile(configfile) :
-            siteconfig = json2dict( join( args.sitepath, configfile ))
-            layoutname = siteconfig['layout']
-        else :
-            layoutname = args.layout
-            siteconfig = {}
-
-        sett = { 'sitepath' : args.sitepath,
-                 'siteconfig' : siteconfig
+        siteconfig = abspath(args.configfile) if args.configfile \
+                                else join( args.sitepath, args.configfile )
+        sett = { 'sitepath'   : args.sitepath,
+                 'siteconfig' : siteconfig,
                }
         layout = self.qp( ILayout, args.layout, settings=sett )
         if not layout :

@@ -26,13 +26,14 @@ class ILayout(Interface):
     def is_exist( sitepath ):
         """Is there a valid layout under `sitepath`. Returns a boolean."""
 
-    def create():
+    def create( overwrite=False ):
         """Create a new layout under ``sitepath``. Subsequently users will add
         content under ``sitepath`` which can then be translated to static
         web-site. Corresponds directly with `create` sub-command from pagd
-        command line script."""
+        command line script.
+        """
 
-    def generate(buildtarget, **kwargs):
+    def generate( buildtarget, regen=True ):
         """Generate static web site from source layout, specified by
         ``sitepath``. Corresponds directly with `gen` sub-command from pagd
         command line script.
@@ -41,8 +42,6 @@ class ILayout(Interface):
             Absolute directory path or directory path relative to `sitepath`
             where generated html site-pages are saved. Your static web site is
             available under buildtarget.
-
-        kwargs can be,
 
         ``regen``,
             If True regenerate all source files, whether modified or
@@ -112,7 +111,13 @@ class ILayout(Interface):
 class IContent(Interface):
     """Interface specification to compile text friendly content to
     web-friendly content. These contents will be supplied to page-templates
-    during page generation."""
+    during page generation.
+    
+    All methods of this plugin are re-entrant.
+
+    ``siteconfig`` dictionary will be made available as plugin's settings key,
+    access them as self['siteconfig'].
+    """
 
     def articles( page ):
         """
@@ -133,7 +138,13 @@ class IContent(Interface):
 
 
 class IXContext(Interface):
-    """Interface specification to fetch page context from external sources."""
+    """Interface specification to fetch page context from external sources.
+
+    All methods of this plugin are re-entrant.
+
+    ``siteconfig`` dictionary will be made available as plugin's settings key,
+    access them as self['siteconfig'].
+    """
 
     def fetch( page=None, article=None ):
         """Fetch the context from external source for page. Some times, if
@@ -155,11 +166,19 @@ class IXContext(Interface):
 
 
 class ITemplate(Interface):
-    """Interface specification to translate a page using a template file."""
+    """Interface specification to translate a page using a template file.
+
+    All methods of this plugin are re-entrant.
+
+    ``siteconfig`` dictionary will be made available as plugin's settings key,
+    access them as self['siteconfig'].
+    """
+
+    extensions = []
+    """List of template file extensions that this plugin can parse."""
 
     def render( page ):
         """Render the final html page in the target site-directory."""
-
 
 
 class IPublish(Interface):

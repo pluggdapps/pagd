@@ -13,7 +13,8 @@ import os, time
 from   pluggdapps.plugin    import Plugin, implements
 import pluggdapps.utils     as h
 from   pagd.interfaces      import ILayout, IContent, ITemplate, IXContext
-from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page
+from   pagd.lib             import json2dict, pagd, findtemplate, Site, Page, \
+                                   pagd_plugins
 
 class MyBlog( Plugin ):
     """A layout plugin to generate personal blog sites. Support create, gen,
@@ -23,49 +24,13 @@ class MyBlog( Plugin ):
     implements(ILayout)
     layoutpath = join( dirname(__file__), 'myblog')
 
-    _templates = {
-        'ttl' : 'pagd.Tayra',
-        'jinja2' : 'pagd.Jinja2',
-        'j2' : 'pagd.Jinja2',
-        'mako' : 'pagd.Mako',
-    }
-    """Caching :class:`ITemplate` plugins as a dictionary map of
-    file-extension and plugin-instance."""
-
-    _xcontexts = {}
-    """Caching :class:`IXContext` plugins as a dictionary of plugin-name and
-    plugin instances."""
-
-    _icontents = {}
-    """Caching :class:`IContext` plugins as a dictionary of plugin-name and
-    plugin instances."""
-
     def __init__( self ):
         self.sitepath = self['sitepath']
-        self.siteconfig = self['siteconfig'] or \
-                          json2dict( join( self.sitepath, self['configfile']))
-        self._cache_plugins()
-
-    def _cache_plugins(self):
-        """Instantiate plugins available for :class:`ITemplate`,
-        :class:`IXContext` and :class:`IContent` interfaces.
-        
-        siteconfig and sitepath will be passed as plugin-settings for all
-        instantiated plugins. 
-        """
-        sett = { 'siteconfig' : self.siteconfig,
-                 'sitepath' : self.sitepath
-               }
-        self._templates = {
-            typ : self.qp( ITemplate, caname, settings=sett )
-            for typ, caname in self._templates.items()
-        }
-        self._xcontexts = {
-            p.caname : p for p in self.qps( IXContext, settings=sett )
-        }
-        self._icontents = {
-            p.caname : p for p in self.qps( IContent, settings=sett )
-        }
+        if isinstance(self['siteconfig'], dict) :
+            self.siteconfig = self['siteconfig']
+        else :
+            self.siteconfig = json2dict( join( self['siteconfig'] ))
+        self.plugins = pagd_plugins( self.sitepath, self.siteconfig )
 
     #---- ILayout interface methods
 
@@ -134,7 +99,7 @@ class MyBlog( Plugin ):
                 _, ext = splitext(page.templatefile)
                 ttype = page.context.get('templatetype', ext.lstrip('.'))
                 # generate page's html
-                html = self._templates[ttype].render( page )
+                html = tmpl2plugin( self.plugins, ttype ).render( page )
                 os.makedirs(path, exist_ok=True) if not isdir(path) else None
                 open( abspath( join( path, fname )), 'w' ).write(html)
                 
@@ -164,17 +129,18 @@ class MyBlog( Plugin ):
                 page.urlpath = join( relpath(dirpath, contentdir), pagename)
                 page.urlpath = '/'.join( page.urlpath.split( os.sep ))
                 page.contentfiles = contentfiles
-                page.context = {
-                    'site' : page.site,
-                    'page' : page,
+                page.context = self.config2context( self.siteconfig )
+                page.context.update({
+                    'site'  : page.site,
+                    'page'  : page,
                     'title' : page.pagename,
-                    'layout' : site.siteconfig.get('layout', self.caname),
+                    'layout' : self.caname,
                     'author' : None,
-                    'email' : None,
-                    'createdon' : None,
+                    'email'  : None,
+                    'createdon'     : None,
                     'last_modified' : None,
-                    'date' : None,
-                }
+                    'date'  : None,
+                })
                 page.articles = []
                 yield page
 
@@ -230,8 +196,8 @@ class MyBlog( Plugin ):
         its data-structure."""
 
         n = page.context.get('IContent', self['IContent'])
-        name = n if n in self._icontents else _default_settings['IContent']
-        icont = self._icontents.get( name, None )
+        name = n if n in self.plugins else _default_settings['IContent']
+        icont = self.plugins.get( name, None )
         articles = icont.articles(page) if icont else []
         return articles
 
@@ -298,6 +264,13 @@ class MyBlog( Plugin ):
             path, _ = split( path )
         return contexts
 
+    def config2context( self, siteconfig ):
+        xd = { x : siteconfig[x] 
+               for x in [ 'disqus', 'show_email', 'social_sharing', 'copyright',
+                          'google_webfonts', 'style' ]
+             }
+        return xd
+
     def _skip_context(self, page):
         attrs = h.parsecsv( page.site.siteconfig.get( 'skip_context', '' )) + \
                 h.parsecsv( page.context.get( 'skip_context', '' ))
@@ -308,7 +281,7 @@ class MyBlog( Plugin ):
         ps = h.parsecsv( _xc )
         context = {}
         for s in ps :
-            p = self._xcontexts.get(s, None)
+            p = self.plugins.get(s, None)
             context.update( p.fetch(page) ) if p else None
         return context
 

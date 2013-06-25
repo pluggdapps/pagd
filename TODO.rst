@@ -6,11 +6,16 @@ A roadmap of things to do
   developers, while for the users they get to enjoy the notion of
   site-configuration and context-manipuation.
 
+* Support ``abstract`` metadata for articles. It must be rendered below the
+  title.
+
 * age()-scale is calculated statically, so it does not make sense if the site
   is goint to be generated once in a while. On the other hand if the site is
   going to be generated periodically, then corresponding scale-factor can be
   choosen by user. So make ''git.*'' plugin configuration available for
   IXContext plugins ?
+
+* Add TOC.
 
 * A per-page/default context option to skip metadata from page, even if it is
   available.

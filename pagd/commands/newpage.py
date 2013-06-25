@@ -43,17 +43,10 @@ class NewPage( Singleton ):
         instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
         passed as settings dictionary.
         """
-        configfile = join( args.sitepath, args.configfile )
-        if isfile(configfile) :
-            siteconfig = json2dict( join( args.sitepath, configfile ))
-            layoutname = siteconfig['layout']
-        else :
-            layoutname = args.layout
-            siteconfig = {}
-
-        sett = { 'sitepath' : args.sitepath,
+        siteconfig = abspath(args.configfile) if args.configfile \
+                                else join( args.sitepath, args.configfile )
+        sett = { 'sitepath'   : args.sitepath,
                  'siteconfig' : siteconfig
                }
         layout = self.qp( ILayout, layoutname, settings=sett )
         layout.newpage( pagename )
-

@@ -1,4 +1,4 @@
-@@ shares = h.parsecsv( site.siteconfig['social_sharing'] )
+@@ shares = h.parsecsv( social_sharing )
 <ul>
   @for name in shares :
     <li .${name}> ${ h.readfile( h.ospath.join('_social', '%s.html' % name) ) }

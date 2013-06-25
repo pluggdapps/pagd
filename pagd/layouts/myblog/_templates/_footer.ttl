@@ -2,7 +2,7 @@
             'class="mfp-arrow mfp-arrow-%dir%"></button>'
 @@ tCounter = '<span class="mfp-counter">%curr% of %total%</span>' 
 
-<div #myblog-copyright> ${site.siteconfig['copyright']}
+<div #myblog-copyright> ${copyright}
 <div #myblog-pagd> generated using <a "https://github.com/prataprc/pagd">pagd
 <script text/javascript>
   // Snippet to load rst gallery if available.

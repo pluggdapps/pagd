@@ -7,15 +7,19 @@
 from   pluggdapps.plugin        import Plugin, implements
 import pluggdapps.interfaces
 
+try    : from   jinja2 import Environment, FileSystemLoader
+except : pass
+
 import pagd.interfaces
 
-try    :
-    from   jinja2 import Environment, FileSystemLoader
-    class Jinja2( Plugin ):
-        """Plugin to translate jinja2 templates to html files."""
-        implements( pagd.interfaces.ITemplate )
+class Jinja2( Plugin ):
+    """Plugin to translate jinja2 templates to html files."""
+    implements( pagd.interfaces.ITemplate )
 
-        def __init__( self ):
+    extensions = ['jinja2', 'j2']
+
+    def __init__( self ):
+        try :
             kwargs = {
                 'loader'      : 
                     FileSystemLoader( self['sitepath'] ),
@@ -27,14 +31,15 @@ try    :
                     self['siteconfig'].get('jinja2.extensions', ()),
             }
             self.env = Environment( **kwargs )
+        except NameError:
+            self.env = None
 
-        def render( self, page ):
-            return self._get_template( page.templatefile 
-                                     ).render( page.context )
+    def render( self, page ):
+        tmpl = self._get_template( page.templatefile )
+        return tmpl.render( page.context ) if tmpl != None else ''
 
-        def _get_template( self, template_name, globals=None ):
-            return self.env.get_template(template_name, globals=globals)
-
-except :
-    pass
-
+    def _get_template( self, template_name, globals=None ):
+        if self.env != None :
+            return self.env.get_template( template_name, globals=globals )
+        else :
+            return None

@@ -12,7 +12,7 @@
       <div #myblog-container>
         @@ fpath, metadata, htmltext = page.articles[0]
         ${ article(fpath, htmltext) }
-      @if site.siteconfig['disqus'] :
+      @if disqus :
         <div #myblog-disqus>
           ${ h.readfile( os.path.join('_social', 'disqus.html') ) }
     <hr>
@@ -33,10 +33,10 @@
     <div .metaz>
       @if last_modified :
         <span .last_modified> last modified - ${last_modified};
-      @if site.siteconfig['show_email'] and email :
+      @if show_email and email :
         <a .email href="mailto:${email}"!> contact-author
         ;
-    @if site.siteconfig['social_sharing'] :
+    @if social_sharing :
       <div #myblog-social>
         ${ _social.body() }
     

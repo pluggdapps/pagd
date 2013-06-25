@@ -11,9 +11,9 @@
 
 <title> ${title}
 
-@for src in site.siteconfig['google_webfonts'] :
+@for src in google_webfonts :
   <link text/css "${src}" rel='stylesheet'>
 
 <style text/css>
-  @@ s = '; '.join([ n+':'+v for n,v in site.siteconfig['style'].items() ])
+  @@ s = '; '.join([ n+':'+v for n,v in style.items() ])
   body { ${s} }

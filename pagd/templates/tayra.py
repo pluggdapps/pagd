@@ -14,6 +14,8 @@ class Tayra( Plugin ):
     """Plugin to translate tayra templates to html files."""
     implements( pagd.interfaces.ITemplate )
 
+    extensions = ['ttl', 'tayra', 'tmpl']   # default template
+
     def __init__( self ):
         setts = h.settingsfor( 'tayra.ttlcompiler.', self['siteconfig'] )
         setts.update( helpers=['pagd.h'], debug=True )

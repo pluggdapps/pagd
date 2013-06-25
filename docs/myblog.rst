@@ -72,7 +72,7 @@ create following directory tree,
   `social_sharing` configuration parameter from `config.json`.
 
 - ``_social/`` add all html snippets that you obtain from disqus, twitter,
-  facebook etc...  under this directory.
+  facebook etc... under this directory.
 
 Following is the general idea on how `pagd.myblog` layout works,
 
@@ -166,6 +166,10 @@ configuration settings
   copyright,
     copyright string that will be displayed in page footer.
 
+configuration settings like ``disqus``, ``show_email``, ``social_sharing``,
+``copyright``, ``google_webfonts``, ``style`` are automatically made available
+in page-context.
+
 context information
 -------------------
 
@@ -198,11 +202,11 @@ context information
   _xcontext,
     comma separated string of plugin names (in canonical format) to fetch page
     context from external source, like from repository, network or from
-    persistant data store.
+    persistent data store.
 
   IContent,
     plugin name for translating :class:`Page` to html. Plugins supplied with
-    the package - `pagd.native`, `pagd.pandoc` etc ... if left un-specified
+    the package - `pagd.native`, `pagd.pandoc` etc ... if left unspecified
     then default plugin will be used. Most probably the default plugin is
     `pagd.native`.
 
@@ -216,7 +220,7 @@ context information
     page-template during site-generation.
 
   template
-    template location in asset-spefication format to be used for the
+    template location in asset-specification format to be used for the
     content-page.
 
   templatetype,
