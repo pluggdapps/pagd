@@ -1,19 +1,7 @@
 A roadmap of things to do
 =========================
 
-* Support ``abstract`` metadata for articles. It must be rendered below the
-  title.
-
-* age()-scale is calculated statically, so it does not make sense if the site
-  is goint to be generated once in a while. On the other hand if the site is
-  going to be generated periodically, then corresponding scale-factor can be
-  choosen by user. So make ''git.*'' plugin configuration available for
-  IXContext plugins ?
-
 * Add TOC.
-
-* A per-page/default context option to skip metadata from page, even if it is
-  available.
 
 * if more that one article-content is detected for the same page-url, how to
   generate the HTML ? as list of individual articles ? or as tabbed version of

@@ -103,6 +103,10 @@ tt {
     border-radius: 3px;
 }
 
+.displaynone{
+    display: none;
+}
+
 /* Sytling specific to blog articles */
 
 div#myblog-page {                              /* Entire page */
@@ -238,7 +242,31 @@ div.rst-gallery img {
     margin: 2px;
 }
 
-/* Styling for rst gist directive */
+/* Styling for rst `gist` directive */
 div.gist {
     font-size: smaller;
+}
+
+/* Styling for ``contents`` rst directive */
+div.contents.topic {
+    float: right;
+    padding: 5px 10px;
+    border-left: 1px solid crimson;
+}
+div.contents.topic p.topic-title {
+    margin : 0px 0px 3px 0px;
+    font-weight : bold;
+    color : gray;
+}
+div.contents.topic ul {
+    list-style: none;
+    margin : 0px;
+    font-size : smaller;
+}
+div.contents.topic ul a {
+    text-decoration : none;
+}
+a.toc-backref {
+    text-decoration : none;
+    color : black;
 }
