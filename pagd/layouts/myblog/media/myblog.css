@@ -112,15 +112,16 @@ tt {
 div#myblog-page {                              /* Entire page */
     border-left : 1px dashed black;
     border-right : 1px dashed black;
-    padding : 10px 20px;
+    padding : 10px 0px;
 }
 
 div#myblog-header {                            /* Header / navigation */
     font-weight : bold;
     font-size : larger;
+    border-bottom : 1px dashed gray;
+    padding : 0px 5px;
 }
 div#myblog-header nav {
-    border-bottom : 1px dashed gray;
     padding : 5px 0px;
     color : gray;
 }
@@ -131,23 +132,24 @@ div#myblog-header nav a {
 }
 
 div#myblog-container {                     /* container for blog article */
-    margin-top : 40px;
+    margin-top : 20px;
 }
-article {                           /* article */
+article {                                   /* article */
     position: relative;
     padding-bottom: 32px;
 }
 div.article-title {                         /* article title */
-    margin : 40px 0px 20px 0px;
+    margin : 0px 0px 20px 0px;
+    padding: 0px 20px;
     font-weight : bold;
     font-size : larger;
+    background : #EEE;
 }
 div.article-summary {                       /* article summary */
     font-weight : normal;
     font-style : italic;
     font-size : small;
     font-family: "Courier New", Courier, monospace;
-    line-height: 1em;
     color : gray;
 }
 div.metaa, div.metaz {              /* meta-data for article */
@@ -156,6 +158,10 @@ div.metaa, div.metaz {              /* meta-data for article */
     font-size : small;
     color : gray;
     padding : 2px 0px; 
+    line-height : 1.5em;
+}
+div.metaz {
+    padding: 5px 20px;
 }
 div.metaa .author {                 /* article author */
     color: green;
@@ -165,7 +171,7 @@ div.metaz .last_modified {
     color: gray;
 }
 div.content {                       /* article main content */
-    padding-bottom: 10px;
+    margin: 0px 20px 10px 20px;
 }
 div.metaz .email {                  /* author email-id */
 }
@@ -176,6 +182,7 @@ div.metaz .email {                  /* author email-id */
     position: absolute;
     bottom: 0;
     left: 0;
+    padding: 0px 20px;
 }
 #myblog-social ul {
     float: left;

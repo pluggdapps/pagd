@@ -1,7 +1,7 @@
 A roadmap of things to do
 =========================
 
-* Add TOC.
+* TOC to scroll down with page.
 
 * if more that one article-content is detected for the same page-url, how to
   generate the HTML ? as list of individual articles ? or as tabbed version of
@@ -29,6 +29,9 @@ Release check-list
     sphinx-apidoc -f -d 2 -T -o  docs/ pagd $(APIDOC_EXCLUDE_PATH)"
 
 - Change the release version in ./CHANGELOG, ./pagd/__init__.py
+
+- Update ./CHANGELOG.rst for release changes and update README.rst to
+  highlight important features.
 
 - Update TODO.rst if any, because both CHANGELOG.rst and TODO.rst are referred
   by README.rst.
