@@ -251,7 +251,8 @@ div.rst-gallery img {
 
 /* Styling for rst `gist` directive */
 div.gist {
-    font-size: smaller;
+    font-size: small;
+    word-spacing: 0px;
 }
 
 /* Styling for ``contents`` rst directive */
