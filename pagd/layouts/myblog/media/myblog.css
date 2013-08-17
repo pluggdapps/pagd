@@ -46,19 +46,20 @@ table {
 
 /* standard styling, not specific to any tag-element */
 body {
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Lucida Console", Monaco, monospace;
     font-size: 18px;
     width : 800px;
     min-width : 640px;
     margin : 0px auto;
     background-color : white;
     word-spacing: 3px;
-    line-height: 1.4em;
+    line-height: 1.7em;
 }
 
 h1, h2 {
     margin : 15px 0px;
     font-weight : bold;
+    font-size: larger;
 }
 
 b, strong {
@@ -117,7 +118,6 @@ div#myblog-page {                              /* Entire page */
 
 div#myblog-header {                            /* Header / navigation */
     font-weight : bold;
-    font-size : larger;
     border-bottom : 1px dashed gray;
     padding : 0px 5px;
 }
@@ -148,14 +148,13 @@ div.article-title {                         /* article title */
 div.article-summary {                       /* article summary */
     font-weight : normal;
     font-style : italic;
-    font-size : small;
-    font-family: "Courier New", Courier, monospace;
+    font-size : xx-small;
     color : gray;
 }
 div.metaa, div.metaz {              /* meta-data for article */
-    font-family: "Courier New", Courier, monospace;
+    font-family: "Lucida Console", Monaco, monospace;
     font-weight : normal;
-    font-size : small;
+    font-size : xx-small;
     color : gray;
     padding : 2px 0px; 
     line-height : 1.5em;
@@ -251,7 +250,7 @@ div.rst-gallery img {
 
 /* Styling for rst `gist` directive */
 div.gist {
-    font-size: small;
+    font-size: x-small;
     word-spacing: 0px;
 }
 

@@ -33,7 +33,7 @@ class ILayout(Interface):
         command line script.
         """
 
-    def generate( buildtarget, regen=True ):
+    def generate( buildtarget, regen=True, srcfile=None ):
         """Generate static web site from source layout, specified by
         ``sitepath``. Corresponds directly with `gen` sub-command from pagd
         command line script.

@@ -71,6 +71,7 @@ class MyBlog( Plugin ):
         layout's content-directory.
         """
         regen = kwargs.get('regen', True)
+        srcfile = kwargs.get('srcfile', None)
         for page in self.pages() :
             path = abspath( join( buildtarget, page.relpath ))
             fname = page.pagename + '.html'

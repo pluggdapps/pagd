@@ -1,6 +1,8 @@
 A roadmap of things to do
 =========================
 
+* depends on `docutils` and `pygments`
+
 * TOC to scroll down with page.
 
 * if more that one article-content is detected for the same page-url, how to

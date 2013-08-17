@@ -50,8 +50,7 @@ class Gen( Singleton ):
         instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
         passed as settings dictionary.
         """
-        siteconfig = abspath(args.configfile) if args.configfile \
-                                else join( args.sitepath, args.configfile )
+        siteconfig = join( args.sitepath, args.configfile )
         siteconfig = json2dict( siteconfig )
         layoutname = siteconfig.get( 'layout', args.layout )
         sett = { 'sitepath'   : args.sitepath,

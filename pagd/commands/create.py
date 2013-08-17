@@ -38,7 +38,7 @@ class Create( Singleton ):
         self.subparser.set_defaults( handler=self.handle )
         self.subparser.add_argument(
                 '-g', '--config-path',
-                dest='configfile', default=None,
+                dest='configfile', default='config.json',
                 help='The configuration used to generate the site')
         self.subparser.add_argument(
                 '-f', '--force', dest='overwrite',
@@ -53,8 +53,7 @@ class Create( Singleton ):
         instantiated plugin. ``sitepath`` and ``siteconfig`` references willbe
         passed as settings dictionary.
         """
-        siteconfig = abspath(args.configfile) if args.configfile \
-                                else join( args.sitepath, args.configfile )
+        siteconfig = join( args.sitepath, args.configfile )
         sett = { 'sitepath'   : args.sitepath,
                  'siteconfig' : siteconfig,
                }
