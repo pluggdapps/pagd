@@ -8,6 +8,8 @@ List of release changes.
 
 ``Wed Jan 05, 2014``
 
+- migrated from mercurial to git repository, and the project is now tracked in
+  github.
 - rst plugin to embed gist file is added.
 - configuration settings like ``disqus``, ``show_email``, ``social_sharing``,
   ``copyright``, ``google_webfonts``, ``style`` are automatically made
@@ -23,6 +25,7 @@ List of release changes.
 - Styling for TOC.
 - default configuration file config.json.
 - updated CSS for myblog layout.
+
 
 0.2dev
 ------
