@@ -6,8 +6,8 @@
 
 """Pagd is static web site creator based on pluggdapps component system - it
 can be extended in many ways."""
-    
-__version__ = '0.2dev'
+
+__version__ = '0.21dev'
 
 
 def package( pa ) :

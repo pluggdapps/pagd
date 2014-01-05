@@ -3,6 +3,27 @@ CHANGELOG
 
 List of release changes.
 
+0.21dev
+-------
+
+``Wed Jan 05, 2014``
+
+- rst plugin to embed gist file is added.
+- configuration settings like ``disqus``, ``show_email``, ``social_sharing``,
+  ``copyright``, ``google_webfonts``, ``style`` are automatically made
+  available in page-context.
+- ITemplate, IXContext, IContent plugins are instantiated by layout using the
+  newly added ``plugin()`` library function.
+- Support ``summary`` metadata for articles. It must be rendered below the
+  title.
+- age()-scale is calculated statically, so it does not make sense if the site
+  is going to be generated once in a while. On the other hand if the site is
+  going to be generated periodically, then corresponding scale-factor can be
+  choosen by user.
+- Styling for TOC.
+- default configuration file config.json.
+- updated CSS for myblog layout.
+
 0.2dev
 ------
 

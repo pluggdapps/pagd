@@ -30,7 +30,7 @@ Release check-list
     sphinx-quickstart   # And follow the prompts.
     sphinx-apidoc -f -d 2 -T -o  docs/ pagd $(APIDOC_EXCLUDE_PATH)"
 
-- Change the release version in ./CHANGELOG, ./pagd/__init__.py
+- Change the release version in ./CHANGELOG.rst, ./pagd/__init__.py
 
 - Update ./CHANGELOG.rst for release changes and update README.rst to
   highlight important features.
@@ -39,7 +39,7 @@ Release check-list
   by README.rst.
 
 - copy ~/oss/magnific-popup-git/dist/
-  {magnific-popup.css,jquery.magnific-popup.min.js
+  {magnific-popup.css,jquery.magnific-popup.min.js}
   files to pagd/layouts/myblog/media/magnific-popup/ directory.
 
 - Check whether release changelogs in CHANGELOG.rst have their release-timeline
@@ -57,6 +57,6 @@ Release check-list
 
 - After making the release, taging the branch, increment the version number.
 
-- Create a tag and push the tagged branch to 
+- Create a tag and push the tagged branch to
     github.com
 
