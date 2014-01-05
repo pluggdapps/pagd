@@ -1,6 +1,10 @@
 A roadmap of things to do
 =========================
 
+* create a plugin to generated related articles box containing hyper links to
+  related articles in the laytout. Interesting algorithms can be used to
+  identify related articles.
+
 * depends on `docutils` and `pygments`
 
 * TOC to scroll down with page.
