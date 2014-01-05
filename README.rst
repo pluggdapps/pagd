@@ -124,7 +124,7 @@ Features
   the name of the tool ;)
 
 - **License:** `GPLv3 license`_
-- **Requires:** Linux, Python-3.x, Pluggdapps.
+- **Requires:** Linux/OS-X, Python-3.x, Pluggdapps.
 
   - To interpret markdown text, python-markdown_ needs to be installed.
   - To interpret rst text, docutils_ needs to be installed.

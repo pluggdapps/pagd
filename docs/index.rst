@@ -98,6 +98,7 @@ Features
     plugin. Magnific-popop is a well documented jquery plugin, it is possible
     to change its CSS file and/or pagd template script to customize it in 
     many ways.
+  - to embed github gist, entire gist or individual file in a gist.
 
 - ``pagd.myblog`` layout is loaded with batteries.
 

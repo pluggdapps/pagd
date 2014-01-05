@@ -1,8 +1,9 @@
 A roadmap of things to do
 =========================
 
-* A per-page/default context option to skip metadata from page, even if it is
-  available.
+* depends on `docutils` and `pygments`
+
+* TOC to scroll down with page.
 
 * if more that one article-content is detected for the same page-url, how to
   generate the HTML ? as list of individual articles ? or as tabbed version of
@@ -29,13 +30,16 @@ Release check-list
     sphinx-quickstart   # And follow the prompts.
     sphinx-apidoc -f -d 2 -T -o  docs/ pagd $(APIDOC_EXCLUDE_PATH)"
 
-- Change the release version in ./CHANGELOG, ./pagd/__init__.py
+- Change the release version in ./CHANGELOG.rst, ./pagd/__init__.py
+
+- Update ./CHANGELOG.rst for release changes and update README.rst to
+  highlight important features.
 
 - Update TODO.rst if any, because both CHANGELOG.rst and TODO.rst are referred
   by README.rst.
 
 - copy ~/oss/magnific-popup-git/dist/
-  {magnific-popup.css,jquery.magnific-popup.min.js
+  {magnific-popup.css,jquery.magnific-popup.min.js}
   files to pagd/layouts/myblog/media/magnific-popup/ directory.
 
 - Check whether release changelogs in CHANGELOG.rst have their release-timeline
@@ -53,6 +57,6 @@ Release check-list
 
 - After making the release, taging the branch, increment the version number.
 
-- Create a tag and push the tagged branch to 
+- Create a tag and push the tagged branch to
     github.com
 
