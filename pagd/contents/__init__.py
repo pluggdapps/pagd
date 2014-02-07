@@ -52,7 +52,7 @@ def md2html(fpath, page):
     md = Markdown( extensions=['meta'],
                    output_format='html5', safe_mode='escape' )
     content = md.convert( open(fpath).read() )
-    metadata = {name.lower() : value[0] for name, value in md.meta.items()}
+    metadata = {name.lower() : value[0] for name, value in md.Meta.items()}
     return metadata, content
 
 
