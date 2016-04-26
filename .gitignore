@@ -7,6 +7,8 @@ syntax: glob
 distribute-0.6.10.tar.gz
 .vimsession
 pagd.egg-info
+build/
+dist/
 # switch to regexp syntax.
 syntax: regexp
 ^\.pc/
